@@ -1,1 +1,2 @@
 Plik do testowania gita
+test #01
