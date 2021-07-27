@@ -7,8 +7,6 @@ let animate = window.requestAnimationFrame || window.webkitRequestAnimationFrame
 
 //Canvas
 let canvas = document.getElementById("mainCanvas");
-//canvas.width = 1000;
-//canvas.height = 1000;
 let context = canvas.getContext('2d');
 
 let now = Date.now()/1000;
@@ -27,7 +25,7 @@ let update = function (){
     let delta=(newTime-now);
     now=newTime;
     fpsCalculator.update();
-    if(LOG_TIME) document.getElementById('timeLog').innerHTML = now%100000;
+    if(LOG_TIME) document.getElementById('timeLog').innerHTML = Math.round((now%100000)*100)/100;
 };
 
 //Rysowanie klatki
@@ -37,16 +35,16 @@ let render = function (){
 };
 
 //Ogarnianie klawiatury
-window.addEventListener("keydown", function (event) {
-  if(!keysDown[event.keyCode]){
-  	//Misja: aktualizacja keyCode
-  	keysDown[event.keyCode] = true;
+window.addEventListener("keydown", function (event) { 
+  if(!keysDown[event.key]){
+  	document.getElementById('keyCode').innerHTML = event.key;
+  	keysDown[event.key] = true;
     //Tutaj wydarzenia reagujące na wciśnięcie przycisku klawiatury
   }
 });
 
 window.addEventListener("keyup", function (event) {
-  delete keysDown[event.keyCode];
+  delete keysDown[event.key];
   //Tutaj wydarzenia reagujące na odciśnięcie przycisku klawiatury
 });
 
@@ -66,10 +64,10 @@ let fpsCalculator = {
 	update: function () {
 		this.framesSinceLastCheck++;
 		if(now>this.lastCheck+1){
-			this.fps=this.framesSinceLastCheck/(now-this.lastCheck);
+			this.fps= this.framesSinceLastCheck/(now-this.lastCheck);
 			this.lastCheck=now;
 			this.framesSinceLastCheck=0;
-			if(LOG_FPS) document.getElementById('fpsLog').innerHTML = this.fps;
+			if(LOG_FPS) document.getElementById('fpsLog').innerHTML = Math.round(this.fps);
 		}
 	}
 }
@@ -82,5 +80,4 @@ let step = function () {
 };
 
 init();
-document.body.appendChild(canvas);
 animate(step);
