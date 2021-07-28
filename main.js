@@ -37,9 +37,11 @@ let render = function (){
   ship.render();
 };
 
+//Tworzenie statku
 let ship = {
   speed: 0,
   acceleration: 200,
+  drag: 0.5,
   angle: 0,
   x: 100,
   y: 100,
@@ -51,7 +53,7 @@ let ship = {
     if((keysDown["w"] || keysDown["ArrowUp"]) && this.speed < 400){
       this.speed += this.acceleration * delta;
       static = false;
-    } if((keysDown["s"] || keysDown["ArrowDown"]) && this.speed > -400){
+    } if((keysDown["s"] || keysDown["ArrowDown"]) && this.speed > -400){//zmiany predkosci
       this.speed -= this.acceleration * delta;
       static = false;
     } if(keysDown["d"] || keysDown["ArrowRight"]){
@@ -59,14 +61,18 @@ let ship = {
     } if(keysDown["a"] || keysDown["ArrowLeft"]){
       this.angle -= Pi/120;
     } if (static) {
-      this.speed -= this.acceleration * delta * Math.sign(this.speed) / 2 ;
+      this.speed -= this.acceleration * delta * Math.sign(this.speed) * this.drag;//samoczynne zatrzymywanie sie
     }
-      this.x += Math.sin(this.angle) * this.speed * delta;
+      this.x += Math.sin(this.angle) * this.speed * delta;//translacja
       this.y -= Math.cos(this.angle) * this.speed * delta;
 
   },
   render: function(){
-    drawRotatedRect(this, this.angle);
+    if (0 < this.x < 1920 || 0 < this.y < 1080) {
+      this.x = (this.x + 1920) % 1920;
+      this.y = (this.y + 1080) % 1080;
+    }//width=1920 height=1080
+    drawRotatedRect(this, this.angle);//LOREM IPSUM
   },
 }
 
