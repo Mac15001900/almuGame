@@ -84,7 +84,7 @@ let ship = {
 }
 
 let Asteroid = function() {
-this.color = "dd0000";
+this.color = "#dfff20";
 this.random = Math.ceil(Math.random()*4);
 this.x = 0;
 this.y = 0;
@@ -122,7 +122,7 @@ this.speedY = 0;
   };
   this.render = function(){
     context.fillStyle = this.color;
-    context.fillRect( this.x, this.y, 400, 400);
+    context.fillRect( this.x, this.y, 600, 400);
   };
 }
 
