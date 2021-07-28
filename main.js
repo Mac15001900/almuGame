@@ -13,6 +13,8 @@ let context = canvas.getContext('2d');
 let now = Date.now()/1000;
 let keysDown = {};
 
+let asteroids = [];
+
 let init = function(){
 
   //Rzeczy dziejące się na początku  
@@ -28,6 +30,13 @@ let update = function (){
     fpsCalculator.update();
     if(LOG_TIME) document.getElementById('timeLog').innerHTML = Math.round((now%100000)*100)/100;
     ship.update(delta);
+    if(asteroids.length < 5){
+      asteroids.push(new Asteroid());
+    }
+      for (let i = 0; i < asteroids.length; i++) {
+        asteroids[i].update(delta);
+      }
+
 };
 
 //Rysowanie klatki
@@ -35,6 +44,10 @@ let render = function (){
   context.fillStyle = "#000000";
   context.fillRect(0, 0, canvas.width, canvas.height);
   ship.render();
+  for (let i = 0; i < asteroids.length; i++) {
+    asteroids[i].render();
+  }
+
 };
 
 //Tworzenie statku
@@ -76,6 +89,48 @@ let ship = {
   },
 }
 
+let Asteroid = function() {
+this.color = "#dfff20";
+this.random = Math.ceil(Math.random()*4);
+this.x = 0;
+this.y = 0;
+this.speedX = 0;
+this.speedY = 0;
+  if( this.random === 1){
+    this.x = -200;
+    this.y = canvas.height * Math.random();
+    this.speedX = 50 + Math.random()*50;
+    this.speedY = Math.random()*50 - Math.random()*50;
+  }
+  else if( this.random === 2){
+    this.x = canvas.width * Math.random();
+    this.y = -200;
+    this.speedX = Math.random()*50 - Math.random()*50;
+    this.speedY = 50 + Math.random()*50;
+  }
+  else if( this.random === 3){
+    this.x = canvas.width + 200;
+    this.y = canvas.height * Math.random();
+    this.speedX = -50 - Math.random()*50;
+    this.speedY = Math.random()*50 - Math.random()*50;
+  }
+  else if( this.random === 4){
+    this.x = canvas.width * Math.random();
+    this.y = canvas.height + 200;
+    this.speedX = Math.random*50 - Math.random()*50;
+    this.speedY = -50 - Math.random()*50;
+  }
+
+
+  this.update = function(delta){
+      this.x += this.speedX*delta;
+      this.y += this.speedY*delta;
+  };
+  this.render = function(){
+    context.fillStyle = this.color;
+    context.fillRect( this.x, this.y, 600, 400);
+  };
+}
 
 //Drobne użytkowe funkcje
 function drawRotatedRect(rect,rotation){
