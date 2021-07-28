@@ -37,8 +37,8 @@ let render = function (){
 };
 
 let ship = {
-  speed: 100,
-  weight: 100,
+  speed: 0,
+  acceleration: 100,
   angle: 0,
   x: 100,
   y: 100,
@@ -46,8 +46,10 @@ let ship = {
   height: 300,
   color: "#123456",
   update: function(delta){
-    if(keysDown["w"] || keysDown["ArrowUp"]){
-      this.y -= this.speed * delta;
+    if((keysDown["w"] || keysDown["ArrowUp"]) && this.speed < 300){
+      this.speed = this.acceleration * delta;
+      this.x += Math.sin()this.speed * delta;
+      this.y -= Math.cos()this.speed * delta;
     } if(keysDown["s"] || keysDown["ArrowDown"]){
       this.y += this.speed * delta;
     } if(keysDown["d"] || keysDown["ArrowRight"]){
