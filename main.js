@@ -75,7 +75,17 @@ let ship = {
 
 
 
-
+//Drobne użytkowe funkcje
+function drawRotatedRect(rect,rotation){
+    context.save();
+    context.beginPath();
+    context.translate(rect.x+rect.width/2, rect.y+rect.height/2);
+    context.rotate(rotation);
+    context.rect(-width/2, -height/2, width, height);
+    context.fillStyle = rect.color;
+    context.fill()
+    context.restore()
+}
 
 
 //Ogarnianie klawiatury
