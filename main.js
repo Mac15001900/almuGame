@@ -38,6 +38,8 @@ let render = function (){
 
 let ship = {
   speed: 100,
+  weight: 100,
+  angle: 0,
   x: 100,
   y: 100,
   width: 200,
