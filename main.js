@@ -26,13 +26,53 @@ let update = function (){
     now=newTime;
     fpsCalculator.update();
     if(LOG_TIME) document.getElementById('timeLog').innerHTML = Math.round((now%100000)*100)/100;
+    ship.update(delta);
 };
 
 //Rysowanie klatki
 let render = function (){
   context.fillStyle = "#000000";
   context.fillRect(0, 0, canvas.width, canvas.height);
+  ship.render();
 };
+
+let ship = {
+  speed: 100,
+  x: 100,
+  y: 100,
+  width: 200,
+  height: 300,
+  color: "#123456",
+  update: function(delta){
+    if(keysDown["w"] || keysDown["ArrowUp"]){
+      this.y -= this.speed * delta;
+    } if(keysDown["s"] || keysDown["ArrowDown"]){
+      this.y += this.speed * delta;
+    } if(keysDown["d"] || keysDown["ArrowRight"]){
+      this.x += this.speed * delta;
+    } if(keysDown["a"] || keysDown["ArrowLeft"]){
+      this.x -= this.speed * delta;
+    }
+  },
+  render: function(){
+    context.fillStyle = this.color;
+    context.fillRect( this.x, this.y, this.width, this.height);
+  },
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Ogarnianie klawiatury
 window.addEventListener("keydown", function (event) { 
