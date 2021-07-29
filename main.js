@@ -109,8 +109,7 @@ let Missile = function(x, y, angle) {
 	this.angle= angle-Pi/2;
 	this.x= x;
 	this.y= y;
-	this.width= 12;
-	this.height= 30;
+  this.radius = 10;
 	this.color= "#EB0018";
 	this.update = function(delta){
 		if(0<x<canvas.width && 0<y<canvas.height){
@@ -121,7 +120,7 @@ let Missile = function(x, y, angle) {
 		
 	};
 	this.render = function(){
-    drawRotatedRect(this, angle);
+    drawCircle(this)
   };
   this.forDeletion = function(){
   	return(!(0<this.x && this.x<canvas.width && 0<this.y && this.y<canvas.height));
@@ -201,10 +200,10 @@ function drawRotatedRect(rect,rotation){
 }
 
 function drawCircle(circle){
-    contex.beginPath();
+    context.beginPath();
     context.fillStyle = circle.color;
-    contex.arc(circle.x, circle.y, circle.radius);
-    context.fill(circle.color);
+    context.arc(circle.x, circle.y, circle.radius, 0, Math.PI*2);
+    context.fill();
 }
 
 
