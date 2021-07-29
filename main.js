@@ -178,7 +178,7 @@ let KaBOOM = function (size,i) {
   this.bool = false;
   if(size>200){
     bool = true;
-    asteroids[i].forDeletion(bool)
+    asteroids[i].forDeletion(bool);
   }
 }
 //Drobne użytkowe funkcje
