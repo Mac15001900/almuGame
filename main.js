@@ -24,29 +24,28 @@ let init = function(){
 
 //Logika gry (w każdej klatce)
 let update = function (){
-	//Update time and FPS
-    let newTime=Date.now()/1000;
-    let delta=(newTime-now);
-    now=newTime;
-    fpsCalculator.update();
-    if(LOG_TIME) document.getElementById('timeLog').innerHTML = Math.round((now%100000)*100)/100;
-    ship.update(delta);
-    for( let i=0; i<missiles.length; i++) {
-    	missiles[i].update(delta);
-    }
-    for (let i=0; i<missiles.length;i++){
-		if(missiles[i].forDeletion()){
-			missiles.splice(i,1);
-		}
-	}
-   //missiles.splice(i,1)
-    if(asteroids.length < 5){
-      asteroids.push(new Asteroid());
-    }
-      for (let i = 0; i < asteroids.length; i++) {
-        asteroids[i].update(delta);
-      }
-
+//Update time and FPS
+  let newTime=Date.now()/1000;
+  let delta=(newTime-now);
+  now=newTime;
+  fpsCalculator.update();
+  if(LOG_TIME) document.getElementById('timeLog').innerHTML = Math.round((now%100000)*100)/100;
+  ship.update(delta);
+  for( let i=0; i<missiles.length; i++) {
+  	missiles[i].update(delta);
+  }
+  for (let i=0; i<missiles.length;i++){
+	  if(missiles[i].forDeletion()){
+	    missiles.splice(i,1);
+	  }
+  }
+ //missiles.splice(i,1)
+  if(asteroids.length < 5){
+    asteroids.push(new Asteroid());
+  }
+  for (let i = 0; i < asteroids.length; i++) {
+    asteroids[i].update(delta);
+  }
 };
 
 //Rysowanie klatki
@@ -73,6 +72,7 @@ let ship = {
   y: 100,
   width: 200,
   height: 300,
+  rad: 150,
   color: "#123456",
   update: function(delta){
     let static = true;
@@ -89,11 +89,16 @@ let ship = {
     } if (static) {
       this.speed -= this.acceleration * delta * Math.sign(this.speed) * this.drag;//samoczynne zatrzymywanie sie
     }
-      this.x += Math.sin(this.angle) * this.speed * delta;//translacja
-      this.y -= Math.cos(this.angle) * this.speed * delta;
+    this.x += Math.sin(this.angle) * this.speed * delta;//translacja
+    this.y -= Math.cos(this.angle) * this.speed * delta;
+    if(asteroids.length > 1){
+    if (circleCollide(ship, asteroids[0])){
+      console.log("bajo jajo");
+    }}
 
   },
   render: function(){
+    newX = 0;
     if (0 < this.x < 1920 || 0 < this.y < 1080) {
       this.x = (this.x + 1920) % 1920;
       this.y = (this.y + 1080) % 1080;
@@ -133,6 +138,7 @@ this.color = "#dfff20";
 this.random = Math.ceil(Math.random()*4);
 this.x = 0;
 this.y = 0;
+this.rad = 200;
 this.speedX = 0;
 this.speedY = 0;
   if( this.random === 1){
@@ -181,6 +187,12 @@ function drawRotatedRect(rect,rotation){
     context.fillStyle = rect.color;
     context.fill()
     context.restore()
+}
+
+function circleCollide(circ1,circ2){
+  let x = Math.max(circ1.x, circ2.x) - Math.min(circ1.x, circ2.x);
+  let y = Math.max(circ1.y, circ2.y) - Math.min(circ1.y, circ2.y);
+  return (x**2 + y**2 < circ1.rad + circ2.rad);
 }
 
 
