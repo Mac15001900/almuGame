@@ -1,7 +1,7 @@
 let LOG_FPS=true; 
 let LOG_TIME=true;
 let Pi = Math.PI;
-
+let time = 0;
 let animate = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
         window.setTimeout(callback, 1000 / 60)
     };
@@ -24,28 +24,35 @@ let init = function(){
 
 //Logika gry (w każdej klatce)
 let update = function (){
-//Update time and FPS
-  let newTime=Date.now()/1000;
-  let delta=(newTime-now);
-  now=newTime;
-  fpsCalculator.update();
-  if(LOG_TIME) document.getElementById('timeLog').innerHTML = Math.round((now%100000)*100)/100;
-  ship.update(delta);
-  for( let i=0; i<missiles.length; i++) {
-  	missiles[i].update(delta);
+	//Update time and FPS
+    let newTime=Date.now()/1000;
+    let delta=(newTime-now);
+    now=newTime;
+    fpsCalculator.update();
+    if(LOG_TIME) document.getElementById('timeLog').innerHTML = Math.round((now%100000)*100)/100;
+    ship.update(delta);
+    for( let i=0; i<missiles.length; i++) {
+    	missiles[i].update(delta);
+    }
+    for (let i=0; i<missiles.length;i++){
+		if(missiles[i].forDeletion()){
+			missiles.splice(i,1);
+		}
+	}
+    for (let i=0; i<asteroids.length;i++){
+    if(asteroids[i].forDeletion()){
+      asteroids.splice(i,1);
+    }
   }
-  for (let i=0; i<missiles.length;i++){
-	  if(missiles[i].forDeletion()){
-	    missiles.splice(i,1);
-	  }
-  }
- //missiles.splice(i,1)
-  if(asteroids.length < 5){
-    asteroids.push(new Asteroid());
-  }
-  for (let i = 0; i < asteroids.length; i++) {
-    asteroids[i].update(delta);
-  }
+   //missiles.splice(i,1
+    if(time>3){
+      asteroids.push(new Asteroid());
+      time = 0;
+    }
+    time += delta;
+      for (let i = 0; i < asteroids.length; i++) {
+        asteroids[i].update(delta);
+      }
 };
 
 //Rysowanie klatki
@@ -107,8 +114,8 @@ let ship = {
   },
 }
 let Missile = function(x, y, angle) {
-	this.basespeed= 600;
-	this.angle= angle;
+	this.basespeed= 500;
+	this.angle= angle-Pi/2;
 	this.x= x;
 	this.y= y;
 	this.width= 12;
@@ -116,16 +123,14 @@ let Missile = function(x, y, angle) {
 	this.color= "#EB0018";
 	this.update = function(delta){
 		if(0<x<canvas.width && 0<y<canvas.height){
-			this.y += (this.basespeed * Math.sin(this.angle)) * delta;
-			this.x += (this.basespeed * Math.cos(this.angle)) * delta;
+			this.y += ((this.basespeed + ship.speed) * Math.sin(this.angle)) * delta;
+			this.x += ((this.basespeed + ship.speed) * Math.cos(this.angle)) * delta;
 		}
 
 		
 	};
 	this.render = function(){
-    context.fillStyle = this.color;
-    context.fillRect( this.x, this.y, this.width, this.height);
-       
+    drawRotatedRect(this, angle);
   };
   this.forDeletion = function(){
   	return(!(0<this.x && this.x<canvas.width && 0<this.y && this.y<canvas.height));
@@ -134,6 +139,7 @@ let Missile = function(x, y, angle) {
    
 }
 let Asteroid = function() {
+this.time = 0;
 this.color = "#dfff20";
 this.random = Math.ceil(Math.random()*4);
 this.x = 0;
@@ -141,6 +147,7 @@ this.y = 0;
 this.rad = 200;
 this.speedX = 0;
 this.speedY = 0;
+this.size = 100 + Math.random()*150;
   if( this.random === 1){
     this.x = -200;
     this.y = canvas.height * Math.random();
@@ -162,7 +169,7 @@ this.speedY = 0;
   else if( this.random === 4){
     this.x = canvas.width * Math.random();
     this.y = canvas.height + 200;
-    this.speedX = Math.random*50 - Math.random()*50;
+    this.speedX = Math.random()*50 - Math.random()*50;
     this.speedY = -50 - Math.random()*50;
   }
 
@@ -173,10 +180,21 @@ this.speedY = 0;
   };
   this.render = function(){
     context.fillStyle = this.color;
-    context.fillRect( this.x, this.y, 600, 400);
+    context.fillRect( this.x, this.y, this.size, this.size);
   };
+  this.forDeletion = function() {
+    return(false);
+  } 
 }
+//podział asteroidy na dwa
+let KaBOOM = function (size,i) {
+  if(size>200){
 
+
+
+
+  }
+}
 //Drobne użytkowe funkcje
 function drawRotatedRect(rect,rotation){
     context.save();
@@ -193,6 +211,12 @@ function circleCollide(circ1,circ2){
   let x = Math.max(circ1.x, circ2.x) - Math.min(circ1.x, circ2.x);
   let y = Math.max(circ1.y, circ2.y) - Math.min(circ1.y, circ2.y);
   return (x**2 + y**2 < circ1.rad + circ2.rad);
+}
+function drawCircle(circle){
+    contex.beginPath();
+    context.fillStyle = circle.color;
+    contex.arc(circle.x, circle.y, circle.radius);
+    context.fill(circle.color);
 }
 
 
