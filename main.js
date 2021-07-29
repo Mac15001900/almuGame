@@ -181,6 +181,13 @@ function drawRotatedRect(rect,rotation){
     context.restore()
 }
 
+function drawCircle(circle){
+    contex.beginPath();
+    context.fillStyle = circle.color;
+    contex.arc(circle.x, circle.y, circle.radius);
+    context.fill(circle.color);
+}
+
 
 //Ogarnianie klawiatury
 window.addEventListener("keydown", function (event) { 
