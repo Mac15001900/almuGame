@@ -1,10 +1,10 @@
 //podział asteroidy na dwa
 let KaBOOM = function (size,i) {
-  this.bool = false;
-  if(size>200){
-    bool = true;
-    asteroids[i].forDeletion(bool);
-  }
+    this.bool = false;
+    if(size>200){
+        bool = true;
+        asteroids[i].forDeletion(bool);
+    }
 }
 //Drobne użytkowe funkcje
 function drawRotatedRect(rect,rotation){
@@ -19,9 +19,9 @@ function drawRotatedRect(rect,rotation){
 }
 
 function circleCollide(circ1,circ2){
-  let x = Math.max(circ1.x, circ2.x) - Math.min(circ1.x, circ2.x);
-  let y = Math.max(circ1.y, circ2.y) - Math.min(circ1.y, circ2.y);
-  return (x**2 + y**2 < (circ1.rad + circ2.rad)**2);
+    let x = Math.max(circ1.x, circ2.x) - Math.min(circ1.x, circ2.x);
+    let y = Math.max(circ1.y, circ2.y) - Math.min(circ1.y, circ2.y);
+    return (x**2 + y**2 < (circ1.rad + circ2.rad)**2);
 }
 function drawCircle(circle){
     context.beginPath();
