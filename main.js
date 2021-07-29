@@ -101,7 +101,7 @@ let ship = {
     if(asteroids.length > 1){
       for (let i = asteroids.length - 1; i >= 0; i--) {
         if (circleCollide(ship, asteroids[0])){
-          console.log("bajo jajo");
+          
         }
       }
     }
@@ -213,7 +213,7 @@ function drawRotatedRect(rect,rotation){
 function circleCollide(circ1,circ2){
   let x = Math.max(circ1.x, circ2.x) - Math.min(circ1.x, circ2.x);
   let y = Math.max(circ1.y, circ2.y) - Math.min(circ1.y, circ2.y);
-  return (x**2 + y**2 < circ1.rad + circ2.rad);
+  return (x**2 + y**2 < (circ1.rad + circ2.rad)**2);
 }
 function drawCircle(circle){
     contex.beginPath();
