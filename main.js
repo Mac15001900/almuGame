@@ -39,12 +39,15 @@ let update = function (){
 			missiles.splice(i,1);
 		}
 	}
+<<<<<<< HEAD
     for (let i=0; i<asteroids.length;i++){
     if(asteroids[i].forDeletion()){
       asteroids.splice(i,1);
     }
   }
    //missiles.splice(i,1)
+=======
+>>>>>>> origin/main
     if(time>3){
       asteroids.push(new Asteroid());
       time = 0;
@@ -53,7 +56,6 @@ let update = function (){
       for (let i = 0; i < asteroids.length; i++) {
         asteroids[i].update(delta);
       }
-
 };
 
 //Rysowanie klatki
@@ -103,8 +105,8 @@ let ship = {
   },
 }
 let Missile = function(x, y, angle) {
-	this.basespeed= 600;
-	this.angle= angle;
+	this.basespeed= 500;
+	this.angle= angle-Pi/2;
 	this.x= x;
 	this.y= y;
 	this.width= 12;
@@ -112,16 +114,14 @@ let Missile = function(x, y, angle) {
 	this.color= "#EB0018";
 	this.update = function(delta){
 		if(0<x<canvas.width && 0<y<canvas.height){
-			this.y += (this.basespeed * Math.sin(this.angle)) * delta;
-			this.x += (this.basespeed * Math.cos(this.angle)) * delta;
+			this.y += ((this.basespeed + ship.speed) * Math.sin(this.angle)) * delta;
+			this.x += ((this.basespeed + ship.speed) * Math.cos(this.angle)) * delta;
 		}
 
 		
 	};
 	this.render = function(){
-    context.fillStyle = this.color;
-    context.fillRect( this.x, this.y, this.width, this.height);
-       
+    drawRotatedRect(this, angle);
   };
   this.forDeletion = function(){
   	return(!(0<this.x && this.x<canvas.width && 0<this.y && this.y<canvas.height));
@@ -183,8 +183,11 @@ let KaBOOM = function (size,i) {
 
 
 
+<<<<<<< HEAD
   }
 }
+=======
+>>>>>>> origin/main
 //Drobne użytkowe funkcje
 function drawRotatedRect(rect,rotation){
     context.save();
@@ -195,6 +198,13 @@ function drawRotatedRect(rect,rotation){
     context.fillStyle = rect.color;
     context.fill()
     context.restore()
+}
+
+function drawCircle(circle){
+    contex.beginPath();
+    context.fillStyle = circle.color;
+    contex.arc(circle.x, circle.y, circle.radius);
+    context.fill(circle.color);
 }
 
 
