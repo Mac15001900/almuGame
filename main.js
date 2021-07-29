@@ -39,6 +39,11 @@ let update = function (){
 			missiles.splice(i,1);
 		}
 	}
+    for (let i=0; i<asteroids.length;i++){
+    if(asteroids[i].forDeletion()){
+      asteroids.splice(i,1);
+    }
+  }
    //missiles.splice(i,1)
     if(time>3){
       asteroids.push(new Asteroid());
@@ -167,8 +172,19 @@ this.size = 100 + Math.random()*150;
     context.fillStyle = this.color;
     context.fillRect( this.x, this.y, this.size, this.size);
   };
+  this.forDeletion = function() {
+    return(false);
+  } 
 }
+//podział asteroidy na dwa
+let KaBOOM = function (size,i) {
+  if(size>200){
 
+
+
+
+  }
+}
 //Drobne użytkowe funkcje
 function drawRotatedRect(rect,rotation){
     context.save();
