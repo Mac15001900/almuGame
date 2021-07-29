@@ -12,7 +12,7 @@
 
     let now = Date.now()/1000;
     let keysDown = {};
-
+    let starttime = now;
     let missiles = [];
     let asteroids = [];
 
@@ -66,7 +66,9 @@
         asteroids[i].render();
       }
       ship.render();
-
+      context.fillStyle = "#ff2222";
+      context.font = '40px serif';
+      context.fillText(now-starttime, 600, 30);
     };
 
 
