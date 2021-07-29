@@ -30,7 +30,7 @@ let update = function (){
     fpsCalculator.update();
     if(LOG_TIME) document.getElementById('timeLog').innerHTML = Math.round((now%100000)*100)/100;
     ship.update(delta);
-    if(asteroids.length < 5){
+    if(asteroids.length < 7){
       asteroids.push(new Asteroid());
     }
       for (let i = 0; i < asteroids.length; i++) {
@@ -90,6 +90,7 @@ this.x = 0;
 this.y = 0;
 this.speedX = 0;
 this.speedY = 0;
+this.size = 100 + Math.random()*150;
   if( this.random === 1){
     this.x = -200;
     this.y = canvas.height * Math.random();
@@ -111,7 +112,7 @@ this.speedY = 0;
   else if( this.random === 4){
     this.x = canvas.width * Math.random();
     this.y = canvas.height + 200;
-    this.speedX = Math.random*50 - Math.random()*50;
+    this.speedX = Math.random()*50 - Math.random()*50;
     this.speedY = -50 - Math.random()*50;
   }
 
@@ -122,7 +123,7 @@ this.speedY = 0;
   };
   this.render = function(){
     context.fillStyle = this.color;
-    context.fillRect( this.x, this.y, 600, 400);
+    context.fillRect( this.x, this.y, this.size, this.size);
   };
 }
 
