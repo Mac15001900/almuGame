@@ -1,7 +1,7 @@
 let LOG_FPS=true; 
 let LOG_TIME=true;
 let Pi = Math.PI;
-
+let time = 0;
 let animate = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
         window.setTimeout(callback, 1000 / 60)
     };
@@ -39,9 +39,11 @@ let update = function (){
 			missiles.splice(i,1);
 		}
 	}
-    if(asteroids.length < 5){
+    if(time>3){
       asteroids.push(new Asteroid());
+      time = 0;
     }
+    time += delta;
       for (let i = 0; i < asteroids.length; i++) {
         asteroids[i].update(delta);
       }
@@ -119,12 +121,14 @@ let Missile = function(x, y, angle) {
    
 }
 let Asteroid = function() {
+this.time = 0;
 this.color = "#dfff20";
 this.random = Math.ceil(Math.random()*4);
 this.x = 0;
 this.y = 0;
 this.speedX = 0;
 this.speedY = 0;
+this.size = 100 + Math.random()*150;
   if( this.random === 1){
     this.x = -200;
     this.y = canvas.height * Math.random();
@@ -146,7 +150,7 @@ this.speedY = 0;
   else if( this.random === 4){
     this.x = canvas.width * Math.random();
     this.y = canvas.height + 200;
-    this.speedX = Math.random*50 - Math.random()*50;
+    this.speedX = Math.random()*50 - Math.random()*50;
     this.speedY = -50 - Math.random()*50;
   }
 
@@ -157,7 +161,7 @@ this.speedY = 0;
   };
   this.render = function(){
     context.fillStyle = this.color;
-    context.fillRect( this.x, this.y, 600, 400);
+    context.fillRect( this.x, this.y, this.size, this.size);
   };
 }
 
@@ -172,6 +176,13 @@ function drawRotatedRect(rect,rotation){
     context.fillStyle = rect.color;
     context.fill()
     context.restore()
+}
+
+function drawCircle(circle){
+    contex.beginPath();
+    context.fillStyle = circle.color;
+    contex.arc(circle.x, circle.y, circle.radius);
+    context.fill(circle.color);
 }
 
 
