@@ -169,17 +169,16 @@ this.size = 100 + Math.random()*150;
     context.fillStyle = this.color;
     context.fillRect( this.x, this.y, this.size, this.size);
   };
-  this.forDeletion = function() {
-    return(false);
+  this.forDeletion = function(bool) {
+    return(bool);
   } 
 }
 //podział asteroidy na dwa
 let KaBOOM = function (size,i) {
+  this.bool = false;
   if(size>200){
-
-
-
-
+    bool = true;
+    asteroids[i].forDeletion(bool)
   }
 }
 //Drobne użytkowe funkcje
