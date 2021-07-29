@@ -22,7 +22,11 @@ let ship = {
             this.angle += Pi/120;
         } if(keysDown["a"] || keysDown["ArrowLeft"]){
             this.angle -= Pi/120;
-        } if (static) {
+        } if(keysDown["z"]&& now > helpcooldown + cooldown){
+            missiles.push(new Missile(ship.x, ship.y, ship.angle));
+            helpcooldown = now;
+        }
+         if (static) {
             this.speed -= this.acceleration * delta * Math.sign(this.speed) * this.drag;//samoczynne zatrzymywanie sie
         }
         this.x += Math.sin(this.angle) * this.speed * delta;//translacja
