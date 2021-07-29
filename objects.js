@@ -78,7 +78,7 @@ let Asteroid = function() {
     this.rad = 200;
     this.speedX = 0;
     this.speedY = 0;
-    this.size = 100 + Math.random()*150;
+    this.radius = 50 + Math.random()*75;
     if( this.random === 1){
         this.x = -200;
         this.y = canvas.height * Math.random();
@@ -109,8 +109,8 @@ let Asteroid = function() {
         this.y += this.speedY*delta;
     };
     this.render = function(){
-        context.fillStyle = this.color;
-        context.fillRect( this.x, this.y, this.size, this.size);
+        drawCircle(this);
+        
     };
     this.forDeletion = function(bool) {
         return(bool);
