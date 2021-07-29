@@ -69,21 +69,24 @@ let render = function (){
 
 };
 
+//Tworzenie statku
 let ship = {
   speed: 0,
   acceleration: 200,
+  drag: 0.5,
   angle: 0,
   x: 100,
   y: 100,
   width: 200,
   height: 300,
+  rad: 150,
   color: "#123456",
   update: function(delta){
     let static = true;
     if((keysDown["w"] || keysDown["ArrowUp"]) && this.speed < 400){
       this.speed += this.acceleration * delta;
       static = false;
-    } if((keysDown["s"] || keysDown["ArrowDown"]) && this.speed > -400){
+    } if((keysDown["s"] || keysDown["ArrowDown"]) && this.speed > -400){//zmiany predkosci
       this.speed -= this.acceleration * delta;
       static = false;
     } if(keysDown["d"] || keysDown["ArrowRight"]){
@@ -91,16 +94,30 @@ let ship = {
     } if(keysDown["a"] || keysDown["ArrowLeft"]){
       this.angle -= Pi/120;
     } if (static) {
-      this.speed -= this.acceleration * delta * Math.sign(this.speed) / 2 ;
+      this.speed -= this.acceleration * delta * Math.sign(this.speed) * this.drag;//samoczynne zatrzymywanie sie
     }
-      this.x += Math.sin(this.angle) * this.speed * delta;
-      this.y -= Math.cos(this.angle) * this.speed * delta;
+    this.x += Math.sin(this.angle) * this.speed * delta;//translacja
+    this.y -= Math.cos(this.angle) * this.speed * delta;
+    if(asteroids.length > 1){
+      for (let i = asteroids.length - 1; i >= 0; i--) {
+        if (circleCollide(ship, asteroids[0])){
+          
+        }
+      }
+    }
 
   },
   render: function(){
-    drawRotatedRect(this, this.angle);
+    newX = 0;
+    if (0 < this.x < 1920 || 0 < this.y < 1080) {
+      this.x = (this.x + 1920) % 1920;
+      this.y = (this.y + 1080) % 1080;
+    }//width=1920 height=1080
+    drawRotatedRect(this, this.angle);//LOREM IPSUM
   },
 }
+  let cooldown = 0.3;
+  let helpcooldown = 0;
 let Missile = function(x, y, angle) {
 	this.basespeed= 500;
 	this.angle= angle-Pi/2;
@@ -108,6 +125,7 @@ let Missile = function(x, y, angle) {
 	this.y= y;
 	this.width= 12;
 	this.height= 30;
+  this.radius = 10;
 	this.color= "#EB0018";
 	this.update = function(delta){
 		if(0<x<canvas.width && 0<y<canvas.height){
@@ -117,8 +135,8 @@ let Missile = function(x, y, angle) {
 
 		
 	};
-	this.render = function(){
-    drawRotatedRect(this, angle);
+  this.render = function(){
+    drawCircle(this)
   };
   this.forDeletion = function(){
   	return(!(0<this.x && this.x<canvas.width && 0<this.y && this.y<canvas.height));
@@ -132,6 +150,7 @@ this.color = "#dfff20";
 this.random = Math.ceil(Math.random()*4);
 this.x = 0;
 this.y = 0;
+this.rad = 200;
 this.speedX = 0;
 this.speedY = 0;
 this.size = 100 + Math.random()*150;
@@ -193,11 +212,16 @@ function drawRotatedRect(rect,rotation){
     context.restore()
 }
 
+function circleCollide(circ1,circ2){
+  let x = Math.max(circ1.x, circ2.x) - Math.min(circ1.x, circ2.x);
+  let y = Math.max(circ1.y, circ2.y) - Math.min(circ1.y, circ2.y);
+  return (x**2 + y**2 < (circ1.rad + circ2.rad)**2);
+}
 function drawCircle(circle){
-    contex.beginPath();
+    context.beginPath();
     context.fillStyle = circle.color;
-    contex.arc(circle.x, circle.y, circle.radius);
-    context.fill(circle.color);
+    context.arc(circle.x, circle.y, circle.radius, 0, Math.PI*2);
+    context.fill();
 }
 
 
@@ -206,8 +230,9 @@ window.addEventListener("keydown", function (event) {
   if(!keysDown[event.key]){
   	document.getElementById('keyCode').innerHTML = event.key;
   	keysDown[event.key] = true;
-  	if(event.key === "z"){
+  	if(event.key === "z" && now > helpcooldown + cooldown){
   		missiles.push(new Missile(ship.x, ship.y, ship.angle));
+      helpcooldown = now;
   	}
     //Tutaj wydarzenia reagujące na wciśnięcie przycisku klawiatury
   }
