@@ -13,6 +13,7 @@ let context = canvas.getContext('2d');
 let now = Date.now()/1000;
 let keysDown = {};
 
+let missiles = [];
 let asteroids = [];
 
 let init = function(){
@@ -30,6 +31,15 @@ let update = function (){
     fpsCalculator.update();
     if(LOG_TIME) document.getElementById('timeLog').innerHTML = Math.round((now%100000)*100)/100;
     ship.update(delta);
+    for( let i=0; i<missiles.length; i++) {
+    	missiles[i].update(delta);
+    }
+    for (let i=0; i<missiles.length;i++){
+		if(missiles[i].forDeletion()){
+			missiles.splice(i,1);
+		}
+	}
+   //missiles.splice(i,1)
     if(asteroids.length < 5){
       asteroids.push(new Asteroid());
     }
@@ -43,10 +53,13 @@ let update = function (){
 let render = function (){
   context.fillStyle = "#000000";
   context.fillRect(0, 0, canvas.width, canvas.height);
-  ship.render();
+  for( let i=0; i<missiles.length; i++) {
+    	missiles[i].render();
+  }
   for (let i = 0; i < asteroids.length; i++) {
     asteroids[i].render();
   }
+  ship.render();
 
 };
 
@@ -88,7 +101,33 @@ let ship = {
     drawRotatedRect(this, this.angle);//LOREM IPSUM
   },
 }
+let Missile = function(x, y, angle) {
+	this.basespeed= 600;
+	this.angle= angle;
+	this.x= x;
+	this.y= y;
+	this.width= 12;
+	this.height= 30;
+	this.color= "#EB0018";
+	this.update = function(delta){
+		if(0<x<canvas.width && 0<y<canvas.height){
+			this.y += (this.basespeed * Math.sin(this.angle)) * delta;
+			this.x += (this.basespeed * Math.cos(this.angle)) * delta;
+		}
 
+		
+	};
+	this.render = function(){
+    context.fillStyle = this.color;
+    context.fillRect( this.x, this.y, this.width, this.height);
+       
+  };
+  this.forDeletion = function(){
+  	return(!(0<this.x && this.x<canvas.width && 0<this.y && this.y<canvas.height));
+  };
+
+   
+}
 let Asteroid = function() {
 this.color = "#dfff20";
 this.random = Math.ceil(Math.random()*4);
@@ -150,6 +189,9 @@ window.addEventListener("keydown", function (event) {
   if(!keysDown[event.key]){
   	document.getElementById('keyCode').innerHTML = event.key;
   	keysDown[event.key] = true;
+  	if(event.key === "z"){
+  		missiles.push(new Missile(ship.x, ship.y, ship.angle));
+  	}
     //Tutaj wydarzenia reagujące na wciśnięcie przycisku klawiatury
   }
 });
