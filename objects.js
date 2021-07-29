@@ -1,8 +1,9 @@
 //Tworzenie statku
 let ship = {
-    speed: 0,
-    acceleration: 200,
-    drag: 0.5,
+    speedX: 0,
+    speedY: 0,
+    acceleration: 300,
+    drag: 100,
     angle: 0,
     x: 100,
     y: 100,
@@ -12,21 +13,24 @@ let ship = {
     color: "#123456",
     update: function(delta){ 
         let static = true;
-        if((keysDown["w"] || keysDown["ArrowUp"]) && this.speed < 400){
-            this.speed += this.acceleration * delta;
+        if((keysDown["w"] || keysDown["ArrowUp"]) && this.speedX**2 + this.speedY**2 < 400**2){
+            this.speedX += Math.sin(this.angle) * this.acceleration * delta;
+            this.speedY += Math.cos(this.angle) * this.acceleration * delta;
             static = false;
-        } if((keysDown["s"] || keysDown["ArrowDown"]) && this.speed > -400){//zmiany predkosci
-            this.speed -= this.acceleration * delta;
+        } if((keysDown["s"] || keysDown["ArrowDown"]) && this.speedX**2 + this.speedY**2 < 400**2){//zmiany predkosci
+            this.speedX -= Math.sin(this.angle) * this.acceleration * delta;
+            this.speedY -= Math.cos(this.angle) * this.acceleration * delta;
             static = false;
         } if(keysDown["d"] || keysDown["ArrowRight"]){
             this.angle += Pi/120;
         } if(keysDown["a"] || keysDown["ArrowLeft"]){
             this.angle -= Pi/120;
         } if (static) {
-            this.speed -= this.acceleration * delta * Math.sign(this.speed) * this.drag;//samoczynne zatrzymywanie sie
+            this.speedX -= Math.sign(this.speedX) * this.drag * delta;
+            this.speedY -= Math.sign(this.speedY) * this.drag * delta;//samoczynne zatrzymywanie sie
         }
-        this.x += Math.sin(this.angle) * this.speed * delta;//translacja
-        this.y -= Math.cos(this.angle) * this.speed * delta;
+        this.x += this.speedX * delta;//translacja
+        this.y -= this.speedY * delta;
         if(asteroids.length > 1){
             for (let i = asteroids.length - 1; i >= 0; i--) {
                 if (circleCollide(ship, asteroids[0])){
