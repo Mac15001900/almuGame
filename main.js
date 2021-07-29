@@ -219,10 +219,10 @@ function circleCollide(circ1,circ2){
   return (x**2 + y**2 < circ1.rad + circ2.rad);
 }
 function drawCircle(circle){
-    contex.beginPath();
+    context.beginPath();
     context.fillStyle = circle.color;
-    contex.arc(circle.x, circle.y, circle.radius);
-    context.fill(circle.color);
+    context.arc(circle.x, circle.y, circle.radius, 0, Math.PI*2);
+    context.fill();
 }
 
 
