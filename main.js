@@ -116,6 +116,8 @@ let ship = {
     drawRotatedRect(this, this.angle);//LOREM IPSUM
   },
 }
+  let cooldown = 0.3;
+  let helpcooldown = 0;
 let Missile = function(x, y, angle) {
 	this.basespeed= 500;
 	this.angle= angle-Pi/2;
@@ -123,6 +125,7 @@ let Missile = function(x, y, angle) {
 	this.y= y;
 	this.width= 12;
 	this.height= 30;
+  this.radius = 10;
 	this.color= "#EB0018";
 	this.update = function(delta){
 		if(0<x<canvas.width && 0<y<canvas.height){
@@ -132,8 +135,8 @@ let Missile = function(x, y, angle) {
 
 		
 	};
-	this.render = function(){
-    drawRotatedRect(this, angle);
+  this.render = function(){
+    drawCircle(this)
   };
   this.forDeletion = function(){
   	return(!(0<this.x && this.x<canvas.width && 0<this.y && this.y<canvas.height));
@@ -216,10 +219,10 @@ function circleCollide(circ1,circ2){
   return (x**2 + y**2 < (circ1.rad + circ2.rad)**2);
 }
 function drawCircle(circle){
-    contex.beginPath();
+    context.beginPath();
     context.fillStyle = circle.color;
-    contex.arc(circle.x, circle.y, circle.radius);
-    context.fill(circle.color);
+    context.arc(circle.x, circle.y, circle.radius, 0, Math.PI*2);
+    context.fill();
 }
 
 
@@ -228,8 +231,9 @@ window.addEventListener("keydown", function (event) {
   if(!keysDown[event.key]){
   	document.getElementById('keyCode').innerHTML = event.key;
   	keysDown[event.key] = true;
-  	if(event.key === "z"){
+  	if(event.key === "z" && now > helpcooldown + cooldown){
   		missiles.push(new Missile(ship.x, ship.y, ship.angle));
+      helpcooldown = now;
   	}
     //Tutaj wydarzenia reagujące na wciśnięcie przycisku klawiatury
   }
