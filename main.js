@@ -1,7 +1,7 @@
 let LOG_FPS=true; 
 let LOG_TIME=true;
 let Pi = Math.PI;
-
+let time = 0;
 let animate = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
         window.setTimeout(callback, 1000 / 60)
     };
@@ -31,9 +31,6 @@ let update = function (){
     fpsCalculator.update();
     if(LOG_TIME) document.getElementById('timeLog').innerHTML = Math.round((now%100000)*100)/100;
     ship.update(delta);
-<<<<<<< HEAD
-    if(asteroids.length < 7){
-=======
     for( let i=0; i<missiles.length; i++) {
     	missiles[i].update(delta);
     }
@@ -43,10 +40,11 @@ let update = function (){
 		}
 	}
    //missiles.splice(i,1)
-    if(asteroids.length < 5){
->>>>>>> origin/main
+    if(time>3){
       asteroids.push(new Asteroid());
+      time = 0;
     }
+    time += delta;
       for (let i = 0; i < asteroids.length; i++) {
         asteroids[i].update(delta);
       }
@@ -127,6 +125,7 @@ let Missile = function(x, y, angle) {
    
 }
 let Asteroid = function() {
+this.time = 0;
 this.color = "#dfff20";
 this.random = Math.ceil(Math.random()*4);
 this.x = 0;
