@@ -99,9 +99,12 @@ let ship = {
     this.x += Math.sin(this.angle) * this.speed * delta;//translacja
     this.y -= Math.cos(this.angle) * this.speed * delta;
     if(asteroids.length > 1){
-    if (circleCollide(ship, asteroids[0])){
-      console.log("bajo jajo");
-    }}
+      for (let i = asteroids.length - 1; i >= 0; i--) {
+        if (circleCollide(ship, asteroids[0])){
+          console.log("bajo jajo");
+        }
+      }
+    }
 
   },
   render: function(){
