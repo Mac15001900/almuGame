@@ -49,7 +49,8 @@ let ship = {
             this.x = (this.x + 1920) % 1920;
             this.y = (this.y + 1080) % 1080;
         }//width=1920 height=1080
-        drawRotatedRect(this, this.angle);//LOREM IPSUM
+        drawCircle(this);
+        drawRotatedImage(images.shipImage, this.x, this.y, 1, this.angle);
     },
 
 }
@@ -139,7 +140,8 @@ let Asteroid = function(parent) {
     };
     
     this.render = function(){
-        drawCircle(this);
+        drawRotatedImage(images.asteroidImage, this.x, this.y, this.radius/207, this.angle);
+        if(SHOW_HITBOXES) drawCircle(this);
         
     };
     this.forDeletion = function() {
