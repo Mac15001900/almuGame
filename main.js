@@ -17,9 +17,13 @@ let score = 0;
 let missiles = [];
 let asteroids = [];
 
-let init = function(){
+let images = {};
 
-  //Rzeczy dziejące się na początku  
+let init = function(){
+    //Rzeczy dziejące się na początku
+    images.missileImage = new Image();
+    images.missileImage.src = 'assets/pocisk.png';
+
 
 };
 
@@ -79,9 +83,15 @@ let render = function (){
     context.fillStyle = "#ff2222";
     context.font = '40px serif';
     context.fillText(Math.round(((now-starttime)%100000)*100)/100, 700, 30);
+    context.fillStyle = "#ff2222";
+    context.font = '40px serif';
+    context.fillText("czas:",600, 30);
     context.fillStyle = "#ffaa22";
     context.font = '40px serif';
-    context.fillText(Math.round(((now-starttime+score)%100000)*100)/100, 900, 30);
+    context.fillText(Math.round(((now-starttime+score)%100000)*100)/100, 1020, 30);
+    context.fillStyle = "#ffaa22";
+    context.font = '40px serif';
+    context.fillText("wynik:",900, 30);
 };
 //Math.round((now%100000)*100)/100
 
