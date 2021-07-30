@@ -41,7 +41,7 @@
     	}
         for (let i=0; i<asteroids.length;i++){
         if(asteroids[i].forDeletion()){
-          asteroids.splice(i,1);
+            asteroids.splice(i,1);
         }
       }
        //missiles.splice(i,1)
