@@ -36,8 +36,9 @@ let ship = {
         this.x += this.speedX * delta;//translacja
         this.y -= this.speedY * delta;
             for (let i = 0 ; i < asteroids.length; i++) {
-                if (circleCollide(ship, asteroids[i])){
+                if (circleCollide(ship, asteroids[i]) && alive ){
                     alive = false;
+                    endscore = score;
                 }
             }
     },

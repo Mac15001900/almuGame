@@ -15,6 +15,7 @@ let now = Date.now()/1000;
 let keysDown = {};
 let starttime = now;
 let score = 0;
+let endscore = 0;
 let missiles = [];
 let asteroids = [];
 
@@ -94,6 +95,11 @@ let render = function (){
         context.fillStyle = "#ffaa22";
         context.font = '40px serif';
         context.fillText("wynik:",900, 30);
+    }else{
+        context.fillStyle = "#ffffff";
+        context.font = '100px serif';
+        context.fillText("GAME OVER",600, 600);
+
     }
 };
 //Math.round((now%100000)*100)/100
