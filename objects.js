@@ -55,6 +55,7 @@ let ship = {
 let cooldown = 0.3;
 let helpcooldown = 0;
 let Missile = function(ship) {
+    this.colisionCheck = false;
 	this.angle = ship.angle-Pi/2;
 	this.x = ship.x;
 	this.y = ship.y;
@@ -76,7 +77,7 @@ let Missile = function(ship) {
 }
 
 let Asteroid = function() {
-    this.bool = false;
+    this.colisionCheck = false;
     this.time = 0;
     this.color = "#dfff20";
     this.random = Math.ceil(Math.random()*4);
@@ -115,7 +116,8 @@ let Asteroid = function() {
         this.y += this.speedY*delta;
         for(let i=0; i<missiles.length; i++){
             if(circleCollide(asteroids[asteroidindex],missiles[i])){
-                this.bool=true;
+                this.colisionCheck=true;
+                missiles[i].colisionCheck = true;
             }
         }
     };
@@ -124,6 +126,6 @@ let Asteroid = function() {
         
     };
     this.forDeletion = function() {
-        return this.bool;
+        return this.colisionCheck;
     } 
 }
