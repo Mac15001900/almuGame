@@ -5,13 +5,11 @@ let ship = {
     acceleration: 300,
     drag: 100,
     angle: 0,
-    x: 100,
-    y: 100,
-    width: 200,
-    height: 300,
-    radius: 150,
-    color: "#1234dd",
-    update: function(delta){ 
+    x: 960,//width=1920 height=1080
+    y: 540,
+    radius: 75,
+    color: "#123456",
+    update: function(delta){
         let static = true;
         if((keysDown["w"] || keysDown["ArrowUp"]) && this.speedX**2 + this.speedY**2 < 400**2){
             this.speedX += Math.sin(this.angle) * this.acceleration * delta;
@@ -36,7 +34,8 @@ let ship = {
         this.x += this.speedX * delta;//translacja
         this.y -= this.speedY * delta;
             for (let i = 0 ; i < asteroids.length; i++) {
-                if (circleCollide(ship, asteroids[i])){
+                if (circleCollide(ship, asteroids[i]) && alive ){
+                    endscore = now-starttime+score;
                     alive = false;
                 }
             }
@@ -47,9 +46,9 @@ let ship = {
         if (0 < this.x < 1920 || 0 < this.y < 1080) {
             this.x = (this.x + 1920) % 1920;
             this.y = (this.y + 1080) % 1080;
-        }//width=1920 height=1080
+        }
         drawRotatedImage(images.shipImage, this.x, this.y, 1.5, this.angle);
-        drawCircle(this);
+        if(SHOW_HITBOXES) drawCircle(this);
     },
 
 }

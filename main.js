@@ -1,7 +1,7 @@
 let alive = true;
 let LOG_FPS=true; 
 let LOG_TIME=true;
-let SHOW_HITBOXES = true;
+let SHOW_HITBOXES = false;
 let Pi = Math.PI;
 let time = 0;
 let animate = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
@@ -16,6 +16,7 @@ let now = Date.now()/1000;
 let keysDown = {};
 let starttime = now;
 let score = 0;
+let endscore = 0;
 let missiles = [];
 let asteroids = [];
 
@@ -98,6 +99,14 @@ let render = function (){
         context.fillStyle = "#ffaa22";
         context.font = '40px serif';
         context.fillText("wynik:",900, 30);
+    }else{
+        context.fillStyle = "#ffffff";
+        context.font = '100px serif';
+        context.fillText("GAME OVER",600, 600);
+        context.fillStyle = "#ffffff";
+        context.font = '60px serif';
+        context.fillText("Final Score: " + Math.floor(endscore),720, 720);
+
     }
 };
 //Math.round((now%100000)*100)/100
