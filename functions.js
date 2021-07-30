@@ -32,4 +32,5 @@ function drawRotatedImage(image, x, y, scale, rotation){
     context.setTransform(scale, 0, 0, scale, x, y); // sets scale and origin
     context.rotate(rotation);
     context.drawImage(image, -image.width / 2, -image.height / 2);
+    context.setTransform(1,0,0,1,0,0);
 } 
