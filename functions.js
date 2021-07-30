@@ -1,3 +1,8 @@
+//podział asteroidy na dwa
+let KaBOOM = function (asteroid,missle) {
+   
+    
+}
 //Drobne użytkowe funkcje
 function drawRotatedRect(rect,rotation){
     context.save();

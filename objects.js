@@ -10,7 +10,7 @@ let ship = {
     width: 200,
     height: 300,
     radius: 150,
-    color: "#123456",
+    color: "#1234dd",
     update: function(delta){ 
         let static = true;
         if((keysDown["w"] || keysDown["ArrowUp"]) && this.speedX**2 + this.speedY**2 < 400**2){
@@ -48,8 +48,8 @@ let ship = {
             this.x = (this.x + 1920) % 1920;
             this.y = (this.y + 1080) % 1080;
         }//width=1920 height=1080
-        drawCircle(this);
         drawRotatedImage(images.shipImage, this.x, this.y, 1.5, this.angle);
+        drawCircle(this);
     },
 
 }
@@ -70,8 +70,8 @@ let Missile = function(ship) {
 		//}
 	};
     this.render = function(){
-        drawCircle(this);
         drawRotatedImage(images.missileImage, this.x, this.y, 1, this.angle+Pi/2);
+        drawCircle(this);
     };
     this.forDeletion = function(){
         return (!(0<this.x && this.x<canvas.width && 0<this.y && this.y<canvas.height) || this.colisionCheck);
