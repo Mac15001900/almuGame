@@ -50,7 +50,7 @@ let ship = {
             this.y = (this.y + 1080) % 1080;
         }//width=1920 height=1080
         drawCircle(this);
-        drawRotatedImage(images.shipImage, this.x, this.y, 1, this.angle);
+        drawRotatedImage(images.shipImage, this.x, this.y, 1.5, this.angle);
     },
 
 }
