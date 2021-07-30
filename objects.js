@@ -150,7 +150,6 @@ let SmallAsteroid = function(parent) {
     this.speedY = parent.speedY + Math.random() * 150 - 75;
     this.radius = parent.radius * (Math.random() * 0.5 + 0.25);
  
-
     this.update = function(delta,asteroidindex){
         this.x += this.speedX*delta;
         this.y += this.speedY*delta;
