@@ -146,33 +146,3 @@ let Asteroid = function(parent) {
     } 
 }
 
-let SmallAsteroid = function(parent) {
-    this.colisionCheck = false;
-    this.color = "#dfff20";
-    this.random = Math.ceil(Math.random()*4);
-    this.x = parent.x + Math.random() * 100 - 50;
-    this.y = parent.y + Math.random() * 100 - 50;
-    this.speedX = parent.speedX + Math.random() * 150 - 75;
-    this.speedY = parent.speedY + Math.random() * 150 - 75;
-    this.radius = parent.radius * (Math.random() * 0.5 + 0.25);
- 
-    this.update = function(delta,index){
-        this.x += this.speedX*delta;
-        this.y += this.speedY*delta;
-        for(let i=0; i<missiles.length; i++){
-            if(circleCollide(asteroids[index],missiles[i])){
-                this.colisionCheck=true;
-                missiles[i].colisionCheck = true;
-
-            }
-        }
-    };
-
-    this.render = function(){
-        drawCircle(this);
-        
-    };
-    this.forDeletion = function() {
-        return this.colisionCheck;
-    } 
-}
