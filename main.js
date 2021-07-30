@@ -1,6 +1,7 @@
 let alive = true;
 let LOG_FPS=true; 
 let LOG_TIME=true;
+let SHOW_HITBOXES = true;
 let Pi = Math.PI;
 let time = 0;
 let animate = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
@@ -24,7 +25,10 @@ let init = function(){
     //Rzeczy dziejące się na początku
     images.missileImage = new Image();
     images.missileImage.src = 'assets/pocisk.png';
-
+    images.shipImage = new Image();
+    images.shipImage.src = 'assets/statek.png';
+    images.asteroidImage = new Image();
+    images.asteroidImage.src = 'assets/meteoryt.png';
 
 };
 

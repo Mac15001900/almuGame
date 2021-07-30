@@ -21,14 +21,17 @@ function circleCollide(circ1,circ2){
     return (x**2 + y**2 < (circ1.radius + circ2.radius)**2);
 }
 function drawCircle(circle){
+    context.globalAlpha = 0.2;
     context.beginPath();
     context.fillStyle = circle.color;
     context.arc(circle.x, circle.y, circle.radius, 0, Math.PI*2);
     context.fill();
+    context.globalAlpha = 1;
 }
 
 //Funckja z https://stackoverflow.com/questions/17411991/html5-canvas-rotate-image
 function drawRotatedImage(image, x, y, scale, rotation){
+    if(!image) return;
     context.setTransform(scale, 0, 0, scale, x, y); // sets scale and origin
     context.rotate(rotation);
     context.drawImage(image, -image.width / 2, -image.height / 2);
