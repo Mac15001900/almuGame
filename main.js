@@ -41,18 +41,18 @@
     	}
         for (let i=0; i<asteroids.length;i++){
         if(asteroids[i].forDeletion()){
-          asteroids.splice(i,1);
+            asteroids.splice(i,1);
         }
       }
        //missiles.splice(i,1)
         if(time>3){
-          asteroids.push(new Asteroid());
-          time = 0;
+            asteroids.push(new Asteroid());
+            time = 0;
         }
         time += delta;
-          for (let i = 0; i < asteroids.length; i++) {
-            asteroids[i].update(delta);
-          }
+            for (let i = 0; i < asteroids.length; i++) {
+            asteroids[i].update(delta,i);
+            }
     };
 
     //Rysowanie klatki

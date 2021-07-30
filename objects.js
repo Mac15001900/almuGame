@@ -70,6 +70,7 @@ let Missile = function(x, y, angle) {
 }
 
 let Asteroid = function() {
+    this.bool = false;
     this.time = 0;
     this.color = "#dfff20";
     this.random = Math.ceil(Math.random()*4);
@@ -104,15 +105,20 @@ let Asteroid = function() {
         this.speedY = -50 - Math.random()*50;
     }
 
-    this.update = function(delta){
+    this.update = function(delta,asteroidindex){
         this.x += this.speedX*delta;
         this.y += this.speedY*delta;
+        for(let i=0; i<missiles.length; i++){
+            if(circleCollide(asteroids[asteroidindex],missiles[i])){
+                this.bool=true;
+            }
+        }
     };
     this.render = function(){
         drawCircle(this);
         
     };
-    this.forDeletion = function(bool) {
-        return(bool);
+    this.forDeletion = function() {
+        return this.bool;
     } 
 }
