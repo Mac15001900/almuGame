@@ -69,7 +69,8 @@ let Missile = function(ship) {
 		//}
 	};
     this.render = function(){
-        drawCircle(this)
+        drawCircle(this);
+        context.drawImage(images.missileImage, this.x, this.y, this.radius*50, this.radius*50);
     };
     this.forDeletion = function(){
         return (!(0<this.x && this.x<canvas.width && 0<this.y && this.y<canvas.height) || this.colisionCheck);
@@ -151,7 +152,6 @@ let SmallAsteroid = function(parent) {
     this.speedY = parent.speedY + Math.random() * 150 - 75;
     this.radius = parent.radius * (Math.random() * 0.5 + 0.25);
  
-
     this.update = function(delta,asteroidindex){
         this.x += this.speedX*delta;
         this.y += this.speedY*delta;

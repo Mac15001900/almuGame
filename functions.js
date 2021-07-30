@@ -26,3 +26,10 @@ function drawCircle(circle){
     context.arc(circle.x, circle.y, circle.radius, 0, Math.PI*2);
     context.fill();
 }
+
+//Funckja z https://stackoverflow.com/questions/17411991/html5-canvas-rotate-image
+function drawRotatedImage(image, x, y, scale, rotation){
+    context.setTransform(scale, 0, 0, scale, x, y); // sets scale and origin
+    context.rotate(rotation);
+    context.drawImage(image, -image.width / 2, -image.height / 2);
+} 
