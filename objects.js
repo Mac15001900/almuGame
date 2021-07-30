@@ -123,9 +123,9 @@ let Asteroid = function() {
             if(circleCollide(asteroids[asteroidindex],missiles[i])){
                 this.colisionCheck=true;
                 missiles[i].colisionCheck = true;
-                if(asteroids[i].radius > 50){
-                    asteroids.push(new SmallAsteroid(asteroids[i].x - 0.5*asteroids[i].radius  ,  asteroids[i].y  ,  asteroids[i].speedX + 100 * Math.random() - 50,  asteroids[i].speedY + 100 * Math.random() - 50 ,  0.5 * asteroids[i].radius));
-                    asteroids.push(new SmallAsteroid(asteroids[i].x + 0.5*asteroids[i].radius  ,  asteroids[i].y  ,  asteroids[i].speedX + 100 * Math.random() - 50,  asteroids[i].speedY + 100 * Math.random() - 50 ,  0.5 * asteroids[i].radius));
+                if(asteroids[asteroidindex].radius > 25){
+                    asteroids.push(new SmallAsteroid(asteroids[asteroidindex].x   ,  asteroids[asteroidindex].y  ,  asteroids[asteroidindex].speedX + 150 * Math.random() - 75,  asteroids[asteroidindex].speedY + 400 * Math.random() - 200 ,  0.2 * asteroids[asteroidindex].radius + 0.5 * Math.random() * asteroids[asteroidindex].radius));
+                    asteroids.push(new SmallAsteroid(asteroids[asteroidindex].x   ,  asteroids[asteroidindex].y  ,  asteroids[asteroidindex].speedX + 150 * Math.random() - 75,  asteroids[asteroidindex].speedY + 400 * Math.random() - 200 ,  0.2 * asteroids[asteroidindex].radius + 0.5 * Math.random() * asteroids[asteroidindex].radius));
                 }
             }
         }
