@@ -87,28 +87,28 @@ let Asteroid = function() {
     this.speedY = 0;
     this.radius = 50 + Math.random()*75;
     switch(this.random){
-        case this.random === 1:
+        case 1:
             this.x = -200;
             this.y = canvas.height * Math.random();
             this.speedX = 50 + Math.random()*50;
             this.speedY = Math.random()*50 - Math.random()*50;
             break;
         
-        case this.random === 2:
+        case 2:
             this.x = canvas.width * Math.random();
             this.y = -200;
             this.speedX = Math.random()*50 - Math.random()*50;
             this.speedY = 50 + Math.random()*50;
             break;
         
-        case this.random === 3:
+        case 3:
             this.x = canvas.width + 200;
             this.y = canvas.height * Math.random();
             this.speedX = -50 - Math.random()*50;
             this.speedY = Math.random()*50 - Math.random()*50;
             break;
         
-        case this.random === 4:
+        case 4:
             this.x = canvas.width * Math.random();
             this.y = canvas.height + 200;
             this.speedX = Math.random()*50 - Math.random()*50;
