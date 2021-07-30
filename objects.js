@@ -28,7 +28,7 @@ let ship = {
         } if(keysDown["z"]&& now > helpcooldown + cooldown){
             missiles.push(new Missile(ship.x, ship.y, ship.angle));
             helpcooldown = now;
-            console.log.missiles;
+            console.log(missiles);
         } if (static) {
             this.speedX -= Math.sign(this.speedX) * this.drag * delta;
             this.speedY -= Math.sign(this.speedY) * this.drag * delta;//samoczynne zatrzymywanie sie
