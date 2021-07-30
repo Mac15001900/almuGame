@@ -99,6 +99,9 @@ let render = function (){
         context.fillStyle = "#ffffff";
         context.font = '100px serif';
         context.fillText("GAME OVER",600, 600);
+        context.fillStyle = "#ffffff";
+        context.font = '60px serif';
+        context.fillText("Final Score: " + Math.floor(endscore),720, 720);
 
     }
 };

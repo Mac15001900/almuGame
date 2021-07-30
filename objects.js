@@ -11,7 +11,7 @@ let ship = {
     height: 300,
     radius: 150,
     color: "#123456",
-    update: function(delta){ 
+    update: function(delta){
         let static = true;
         if((keysDown["w"] || keysDown["ArrowUp"]) && this.speedX**2 + this.speedY**2 < 400**2){
             this.speedX += Math.sin(this.angle) * this.acceleration * delta;
@@ -37,8 +37,8 @@ let ship = {
         this.y -= this.speedY * delta;
             for (let i = 0 ; i < asteroids.length; i++) {
                 if (circleCollide(ship, asteroids[i]) && alive ){
+                    endscore = now-starttime+score;
                     alive = false;
-                    endscore = score;
                 }
             }
     },
