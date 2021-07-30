@@ -9,7 +9,7 @@ let ship = {
     y: 100,
     width: 200,
     height: 300,
-    rad: 150,
+    radius: 150,
     color: "#123456",
     update: function(delta){ 
         let static = true;
@@ -84,7 +84,6 @@ let Asteroid = function() {
     this.random = Math.ceil(Math.random()*4);
     this.x = 0;
     this.y = 0;
-    this.rad = 200;
     this.speedX = 0;
     this.speedY = 0;
     this.radius = 50 + Math.random()*75;
