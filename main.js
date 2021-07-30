@@ -80,49 +80,46 @@ window.addEventListener("keydown", function (event) {
     if(!keysDown[event.key]){
       	document.getElementById('keyCode').innerHTML = event.key;
       	keysDown[event.key] = true;
-      	if(event.key === "z" && now > helpcooldown + cooldown){
-      		missiles.push(new Missile(ship));
-            helpcooldown = now;
-  	}
-    //Tutaj wydarzenia reagujące na wciśnięcie przycisku klawiatury
-  }
-});
+      	
+        //Tutaj wydarzenia reagujące na wciśnięcie przycisku klawiatury
+      }
+    });
 
-window.addEventListener("keyup", function (event) {
-    delete keysDown[event.key];
-  //Tutaj wydarzenia reagujące na odciśnięcie przycisku klawiatury
-});
+    window.addEventListener("keyup", function (event) {
+      delete keysDown[event.key];
+      //Tutaj wydarzenia reagujące na odciśnięcie przycisku klawiatury
+    });
 
-//Ogarnianie myszki
-canvas.addEventListener("mousedown", function (event){
-	let mouseX = event.pageX; //Koordynaty kliknięcia
-	let mouseY = event.pageY;
-    //Tutaj wydarzenia reagujące na kliknięcie myszką
-}, false);
+    //Ogarnianie myszki
+    canvas.addEventListener("mousedown", function (event){
+    	let mouseX = event.pageX; //Koordynaty kliknięcia
+    	let mouseY = event.pageY;
+        //Tutaj wydarzenia reagujące na kliknięcie myszką
+    }, false);
 
 
-//Kalkulator mierzący FPS
-let fpsCalculator = {
-	lastCheck: now,
-	fps: 0,
-	framesSinceLastCheck: 0,
-	update: function () {
-		this.framesSinceLastCheck++;
-		if(now>this.lastCheck+1){
-			this.fps= this.framesSinceLastCheck/(now-this.lastCheck);
-			this.lastCheck=now;
-			this.framesSinceLastCheck=0;
-			if(LOG_FPS) document.getElementById('fpsLog').innerHTML = Math.round(this.fps);
-		}
-	}
-}
+    //Kalkulator mierzący FPS
+    let fpsCalculator = {
+    	lastCheck: now,
+    	fps: 0,
+    	framesSinceLastCheck: 0,
+    	update: function () {
+    		this.framesSinceLastCheck++;
+    		if(now>this.lastCheck+1){
+    			this.fps= this.framesSinceLastCheck/(now-this.lastCheck);
+    			this.lastCheck=now;
+    			this.framesSinceLastCheck=0;
+    			if(LOG_FPS) document.getElementById('fpsLog').innerHTML = Math.round(this.fps);
+    		}
+    	}
+    }
 
-//Starting the game
-let step = function () {
-    update();
-    render();
+    //Starting the game
+    let step = function () {
+        update();
+        render();
+        animate(step);
+    };
+
+    init();
     animate(step);
-};
-
-init();
-animate(step);

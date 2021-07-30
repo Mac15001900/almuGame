@@ -25,10 +25,10 @@ let ship = {
             this.angle += Pi/120;
         } if(keysDown["a"] || keysDown["ArrowLeft"]){
             this.angle -= Pi/120;
-        } if(keysDown["z"]&& now > helpcooldown + cooldown){
-            missiles.push(new Missile(ship.x, ship.y, ship.angle));
+        } if(keysDown["z"] && now > helpcooldown + cooldown){
+            let newMissile = new Missile(ship);
+            missiles.push(newMissile);
             helpcooldown = now;
-            console.log(missiles);
         } if (static) {
             this.speedX -= Math.sign(this.speedX) * this.drag * delta;
             this.speedY -= Math.sign(this.speedY) * this.drag * delta;//samoczynne zatrzymywanie sie
@@ -72,7 +72,7 @@ let Missile = function(ship) {
         drawCircle(this)
     };
     this.forDeletion = function(){
-        return(!(0<this.x && this.x<canvas.width && 0<this.y && this.y<canvas.height));
+        return (!(0<this.x && this.x<canvas.width && 0<this.y && this.y<canvas.height) || this.colisionCheck);
     };
 }
 
@@ -121,7 +121,7 @@ let Asteroid = function() {
         this.y += this.speedY*delta;
         for(let i=0; i<missiles.length; i++){
             if(circleCollide(asteroids[asteroidindex],missiles[i])){
-                this.colisionCheck=true;
+                this.colisionCheck = true;
                 missiles[i].colisionCheck = true;
                 if(asteroids[asteroidindex].radius > 25){
                     asteroids.push(new SmallAsteroid(asteroids[asteroidindex].x   ,  asteroids[asteroidindex].y  ,  asteroids[asteroidindex].speedX + 150 * Math.random() - 75,  asteroids[asteroidindex].speedY + 400 * Math.random() - 200 ,  0.2 * asteroids[asteroidindex].radius + 0.5 * Math.random() * asteroids[asteroidindex].radius));
