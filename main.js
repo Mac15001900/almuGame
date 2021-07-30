@@ -1,3 +1,4 @@
+let alive = true;
 let LOG_FPS=true; 
 let LOG_TIME=true;
 let Pi = Math.PI;
@@ -59,16 +60,18 @@ let update = function (){
 let render = function (){
     context.fillStyle = "#000000";
     context.fillRect(0, 0, canvas.width, canvas.height);
-    for( let i=0; i<missiles.length; i++) {
-        missiles[i].render();
+    if(alive){
+        for( let i=0; i<missiles.length; i++) {
+            missiles[i].render();
+        }
+        for (let i = 0; i < asteroids.length; i++) {
+            asteroids[i].render();
+        }
+        ship.render();
+        context.fillStyle = "#ff2222";
+        context.font = '40px serif';
+        context.fillText(now-starttime, 600, 30);
     }
-    for (let i = 0; i < asteroids.length; i++) {
-        asteroids[i].render();
-    }
-    ship.render();
-    context.fillStyle = "#ff2222";
-    context.font = '40px serif';
-    context.fillText(now-starttime, 600, 30);
 };
 
 
