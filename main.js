@@ -13,6 +13,7 @@ let context = canvas.getContext('2d');
 let now = Date.now()/1000;
 let keysDown = {};
 let starttime = now;
+let score = 0;
 let missiles = [];
 let asteroids = [];
 
@@ -42,6 +43,15 @@ let update = function (){
     for (let i=0; i<asteroids.length;i++){
     if(asteroids[i].forDeletion()){
         asteroids.splice(i,1);
+        if(asteroids[i].radius < 45){
+            score +=5;
+        }
+        if(45<asteroids[i].radius && asteroids[i].radius<90){
+            score +=10;
+        }
+        if(asteroids[i].radius > 90){
+            score +=15;
+        }
     }
   }
    //missiles.splice(i,1)
@@ -68,9 +78,12 @@ let render = function (){
     ship.render();
     context.fillStyle = "#ff2222";
     context.font = '40px serif';
-    context.fillText(now-starttime, 600, 30);
+    context.fillText(Math.round(((now-starttime)%100000)*100)/100, 700, 30);
+    context.fillStyle = "#ffaa22";
+    context.font = '40px serif';
+    context.fillText(Math.round(((now-starttime+score)%100000)*100)/100, 900, 30);
 };
-
+//Math.round((now%100000)*100)/100
 
 
 
