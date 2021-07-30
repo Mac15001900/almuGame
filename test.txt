@@ -1,4 +1,0 @@
-Plik do testowania gita
-test #01
-lepszy test #01
-nowa linijka

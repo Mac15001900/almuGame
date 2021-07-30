@@ -126,6 +126,7 @@ let Asteroid = function() {
                 if(asteroids[asteroidindex] && asteroids[asteroidindex].radius > 45){
                     asteroids.push(new SmallAsteroid(asteroids[asteroidindex].x   ,  asteroids[asteroidindex].y  ,  asteroids[asteroidindex].speedX + 150 * Math.random() - 75,  asteroids[asteroidindex].speedY + 400 * Math.random() - 200 ,  0.25 * asteroids[asteroidindex].radius + 0.5 * Math.random() * asteroids[asteroidindex].radius));
                     asteroids.push(new SmallAsteroid(asteroids[asteroidindex].x   ,  asteroids[asteroidindex].y  ,  asteroids[asteroidindex].speedX + 150 * Math.random() - 75,  asteroids[asteroidindex].speedY + 400 * Math.random() - 200 ,  0.25 * asteroids[asteroidindex].radius + 0.5 * Math.random() * asteroids[asteroidindex].radius));
+
                 }
             }
         }
@@ -140,16 +141,15 @@ let Asteroid = function() {
     } 
 }
 
-let SmallAsteroid = function(X,Y,SPEEDX,SPEEDY,RADIUS) {
+let SmallAsteroid = function(parent) {
     this.colisionCheck = false;
-    this.time = 0;
     this.color = "#dfff20";
     this.random = Math.ceil(Math.random()*4);
-    this.x = X;
-    this.y = Y;
-    this.speedX = SPEEDX;
-    this.speedY = SPEEDY;
-    this.radius = RADIUS;
+    this.x = parent.x + Math.random() * 100 - 50;
+    this.y = parent.y + Math.random() * 100 - 50;
+    this.speedX = parent.speedX + Math.random() * 150 - 75;
+    this.speedY = parent.speedY + Math.random() * 150 - 75;
+    this.radius = parent.radius * (Math.random() * 0.5 + 0.25);
  
 
     this.update = function(delta,asteroidindex){
