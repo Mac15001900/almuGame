@@ -72,7 +72,7 @@ let Missile = function(ship) {
         drawCircle(this)
     };
     this.forDeletion = function(){
-        return(!(0<this.x && this.x<canvas.width && 0<this.y && this.y<canvas.height));
+        return (!(0<this.x && this.x<canvas.width && 0<this.y && this.y<canvas.height) || this.colisionCheck);
     };
 }
 
@@ -121,7 +121,7 @@ let Asteroid = function() {
         this.y += this.speedY*delta;
         for(let i=0; i<missiles.length; i++){
             if(circleCollide(asteroids[asteroidindex],missiles[i])){
-                this.colisionCheck=true;
+                this.colisionCheck = true;
                 missiles[i].colisionCheck = true;
                 if(asteroids[i].radius > 50){
                     asteroids.push(new SmallAsteroid(asteroids[i].x - 0.5*asteroids[i].radius  ,  asteroids[i].y  ,  asteroids[i].speedX + 100 * Math.random() - 50,  asteroids[i].speedY + 100 * Math.random() - 50 ,  0.5 * asteroids[i].radius));
