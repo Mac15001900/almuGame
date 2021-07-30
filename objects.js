@@ -54,20 +54,18 @@ let ship = {
 }
 let cooldown = 0.3;
 let helpcooldown = 0;
-let Missile = function(x, y, angle) {
-	this.basespeed= 500;
-	this.angle= angle-Pi/2;
-	this.x= x;
-	this.y= y;
-	this.width= 12;
-	this.height= 30;
+let Missile = function(ship) {
+	this.angle = ship.angle-Pi/2;
+	this.x = ship.x;
+	this.y = ship.y;
+    this.speed = 500 + (ship.speedY**2 + ship.speedX**2)**(1/2)
     this.radius = 10;
-	this.color= "#EB0018";
+	this.color = "#EB0018";
 	this.update = function(delta){
-		if(0<x<canvas.width && 0<y<canvas.height){
-			this.y += ((this.basespeed + ship.speed) * Math.sin(this.angle)) * delta;
-			this.x += ((this.basespeed + ship.speed) * Math.cos(this.angle)) * delta;
-		}
+		//if(0 < this.x && this.x < canvas.width && 0 < this.y && this.y < canvas.height){
+			this.y += (this.speed * Math.sin(this.angle)) * delta;
+			this.x += (this.speed * Math.cos(this.angle)) * delta;
+		//}
 	};
     this.render = function(){
         drawCircle(this)
