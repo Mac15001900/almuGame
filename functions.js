@@ -18,7 +18,7 @@ function drawRotatedRect(rect,rotation){
 function circleCollide(circ1,circ2){
     let x = Math.max(circ1.x, circ2.x) - Math.min(circ1.x, circ2.x);
     let y = Math.max(circ1.y, circ2.y) - Math.min(circ1.y, circ2.y);
-    return (x**2 + y**2 < (circ1.rad + circ2.rad)**2);
+    return (x**2 + y**2 < (circ1.radius + circ2.radius)**2);
 }
 function drawCircle(circle){
     context.beginPath();
