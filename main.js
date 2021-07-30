@@ -123,7 +123,3 @@ window.addEventListener("keydown", function (event) {
 
     init();
     animate(step);
-};
-
-init();
-animate(step);

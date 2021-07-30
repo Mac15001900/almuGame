@@ -62,7 +62,6 @@ let Missile = function(ship) {
     this.speed = 500 + (ship.speedY**2 + ship.speedX**2)**(1/2)
     this.radius = 10;
 	this.color = "#EB0018";
-    console.log(this);
 	this.update = function(delta){
 		//if(0 < this.x && this.x < canvas.width && 0 < this.y && this.y < canvas.height){
 			this.y += (this.speed * Math.sin(this.angle)) * delta;
