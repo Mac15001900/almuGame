@@ -123,9 +123,47 @@ let Asteroid = function() {
             if(circleCollide(asteroids[asteroidindex],missiles[i])){
                 this.colisionCheck=true;
                 missiles[i].colisionCheck = true;
+                if(asteroids[i].radius > 50){
+                    asteroids.push(new SmallAsteroid(asteroids[i].x - 0.5*asteroids[i].radius  ,  asteroids[i].y  ,  asteroids[i].speedX + 100 * Math.random() - 50,  asteroids[i].speedY + 100 * Math.random() - 50 ,  0.5 * asteroids[i].radius));
+                    asteroids.push(new SmallAsteroid(asteroids[i].x + 0.5*asteroids[i].radius  ,  asteroids[i].y  ,  asteroids[i].speedX + 100 * Math.random() - 50,  asteroids[i].speedY + 100 * Math.random() - 50 ,  0.5 * asteroids[i].radius));
+                }
             }
         }
     };
+    
+    this.render = function(){
+        drawCircle(this);
+        
+    };
+    this.forDeletion = function() {
+        return this.colisionCheck;
+    } 
+}
+
+let SmallAsteroid = function(X,Y,SPEEDX,SPEEDY,RADIUS) {
+    this.colisionCheck = false;
+    this.time = 0;
+    this.color = "#dfff20";
+    this.random = Math.ceil(Math.random()*4);
+    this.x = X;
+    this.y = Y;
+    this.speedX = SPEEDX;
+    this.speedY = SPEEDY;
+    this.radius = RADIUS;
+ 
+
+    this.update = function(delta,asteroidindex){
+        this.x += this.speedX*delta;
+        this.y += this.speedY*delta;
+        for(let i=0; i<missiles.length; i++){
+            if(circleCollide(asteroids[asteroidindex],missiles[i])){
+                this.colisionCheck=true;
+                missiles[i].colisionCheck = true;
+
+            }
+        }
+    };
+
     this.render = function(){
         drawCircle(this);
         
