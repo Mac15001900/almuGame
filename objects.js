@@ -35,12 +35,11 @@ let ship = {
         }
         this.x += this.speedX * delta;//translacja
         this.y -= this.speedY * delta;
-        if(asteroids.length > 1){
-            for (let i = asteroids.length - 1; i >= 0; i--) {
-                if (circleCollide(ship, asteroids[0])){
+            for (let i = 0 ; i < asteroids.length; i++) {
+                if (circleCollide(ship, asteroids[i])){
+                    alive = false;
                 }
             }
-        }
     },
 
     render: function(){
@@ -51,6 +50,7 @@ let ship = {
         }//width=1920 height=1080
         drawRotatedRect(this, this.angle);//LOREM IPSUM
     },
+
 }
 let cooldown = 0.3;
 let helpcooldown = 0;
@@ -124,9 +124,10 @@ let Asteroid = function() {
             if(circleCollide(asteroids[asteroidindex],missiles[i])){
                 this.colisionCheck = true;
                 missiles[i].colisionCheck = true;
-                if(asteroids[asteroidindex].radius > 25){
-                    asteroids.push(new SmallAsteroid(this));
-                    asteroids.push(new SmallAsteroid(this));
+                if(asteroids[asteroidindex] && asteroids[asteroidindex].radius > 45){
+                    asteroids.push(new SmallAsteroid(asteroids[asteroidindex].x   ,  asteroids[asteroidindex].y  ,  asteroids[asteroidindex].speedX + 150 * Math.random() - 75,  asteroids[asteroidindex].speedY + 400 * Math.random() - 200 ,  0.25 * asteroids[asteroidindex].radius + 0.5 * Math.random() * asteroids[asteroidindex].radius));
+                    asteroids.push(new SmallAsteroid(asteroids[asteroidindex].x   ,  asteroids[asteroidindex].y  ,  asteroids[asteroidindex].speedX + 150 * Math.random() - 75,  asteroids[asteroidindex].speedY + 400 * Math.random() - 200 ,  0.25 * asteroids[asteroidindex].radius + 0.5 * Math.random() * asteroids[asteroidindex].radius));
+
                 }
             }
         }
@@ -151,7 +152,6 @@ let SmallAsteroid = function(parent) {
     this.speedY = parent.speedY + Math.random() * 150 - 75;
     this.radius = parent.radius * (Math.random() * 0.5 + 0.25);
  
-
     this.update = function(delta,asteroidindex){
         this.x += this.speedX*delta;
         this.y += this.speedY*delta;

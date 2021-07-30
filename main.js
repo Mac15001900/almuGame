@@ -1,3 +1,4 @@
+let alive = true;
 let LOG_FPS=true; 
 let LOG_TIME=true;
 let Pi = Math.PI;
@@ -36,30 +37,30 @@ let update = function (){
     fpsCalculator.update();
     if(LOG_TIME) document.getElementById('timeLog').innerHTML = Math.round((now%100000)*100)/100;
     ship.update(delta);
-    for( let i=0; i<missiles.length; i++) {
+    for( let i = 0; i < missiles.length; i++) {
     	missiles[i].update(delta);
     }
-    for (let i=0; i<missiles.length;i++){
+    for (let i = 0; i < missiles.length;i++){
 		if(missiles[i].forDeletion()){
 			missiles.splice(i,1);
 		}
 	}
-    for (let i=0; i<asteroids.length;i++){
+    for (let i = asteroids.length -1; i >= 0;i--){
     if(asteroids[i].forDeletion()){
-        asteroids.splice(i,1);
-        if(asteroids[i].radius < 45){
-            score +=5;
+        if(asteroids[i].radius <= 45){
+            score += 5;
         }
-        if(45<asteroids[i].radius && asteroids[i].radius<90){
-            score +=10;
+        if(45 < asteroids[i].radius && asteroids[i].radius <= 90){
+            score += 10;
         }
         if(asteroids[i].radius > 90){
-            score +=15;
+            score += 15;
         }
+        asteroids.splice(i,1);
     }
   }
    //missiles.splice(i,1)
-    if(time>3){
+    if(time > 3){
         asteroids.push(new Asteroid());
         time = 0;
     }
@@ -73,25 +74,27 @@ let update = function (){
 let render = function (){
     context.fillStyle = "#000000";
     context.fillRect(0, 0, canvas.width, canvas.height);
-    for( let i=0; i<missiles.length; i++) {
-        missiles[i].render();
+    if(alive){
+        for( let i = 0; i < missiles.length; i++) {
+            missiles[i].render();
+        }
+        for (let i = 0; i < asteroids.length; i++) {
+            asteroids[i].render();
+        }
+        ship.render();
+        context.fillStyle = "#ff2222";
+        context.font = '40px serif';
+        context.fillText(Math.round(((now-starttime)%100000)*100)/100, 700, 30);
+        context.fillStyle = "#ff2222";
+        context.font = '40px serif';
+        context.fillText("czas:",600, 30);
+        context.fillStyle = "#ffaa22";
+        context.font = '40px serif';
+        context.fillText(Math.round(((now-starttime+score)%100000)*100)/100, 1020, 30);
+        context.fillStyle = "#ffaa22";
+        context.font = '40px serif';
+        context.fillText("wynik:",900, 30);
     }
-    for (let i = 0; i < asteroids.length; i++) {
-        asteroids[i].render();
-    }
-    ship.render();
-    context.fillStyle = "#ff2222";
-    context.font = '40px serif';
-    context.fillText(Math.round(((now-starttime)%100000)*100)/100, 700, 30);
-    context.fillStyle = "#ff2222";
-    context.font = '40px serif';
-    context.fillText("czas:",600, 30);
-    context.fillStyle = "#ffaa22";
-    context.font = '40px serif';
-    context.fillText(Math.round(((now-starttime+score)%100000)*100)/100, 1020, 30);
-    context.fillStyle = "#ffaa22";
-    context.font = '40px serif';
-    context.fillText("wynik:",900, 30);
 };
 //Math.round((now%100000)*100)/100
 
