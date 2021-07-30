@@ -80,10 +80,7 @@
       if(!keysDown[event.key]){
       	document.getElementById('keyCode').innerHTML = event.key;
       	keysDown[event.key] = true;
-      	if(event.key === "z" && now > helpcooldown + cooldown){
-      		missiles.push(new Missile(ship));
-            helpcooldown = now;
-      	}
+      	
         //Tutaj wydarzenia reagujące na wciśnięcie przycisku klawiatury
       }
     });

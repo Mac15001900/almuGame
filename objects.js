@@ -25,10 +25,10 @@ let ship = {
             this.angle += Pi/120;
         } if(keysDown["a"] || keysDown["ArrowLeft"]){
             this.angle -= Pi/120;
-        } if(keysDown["z"]&& now > helpcooldown + cooldown){
-            missiles.push(new Missile(ship.x, ship.y, ship.angle));
+        } if(keysDown["z"] && now > helpcooldown + cooldown){
+            let newMissile = new Missile(ship);
+            missiles.push(newMissile);
             helpcooldown = now;
-            console.log(missiles);
         } if (static) {
             this.speedX -= Math.sign(this.speedX) * this.drag * delta;
             this.speedY -= Math.sign(this.speedY) * this.drag * delta;//samoczynne zatrzymywanie sie
@@ -62,6 +62,7 @@ let Missile = function(ship) {
     this.speed = 500 + (ship.speedY**2 + ship.speedX**2)**(1/2)
     this.radius = 10;
 	this.color = "#EB0018";
+    console.log(this);
 	this.update = function(delta){
 		//if(0 < this.x && this.x < canvas.width && 0 < this.y && this.y < canvas.height){
 			this.y += (this.speed * Math.sin(this.angle)) * delta;
