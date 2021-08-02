@@ -64,7 +64,6 @@ let update = function (){
         asteroids.splice(i,1);
     }
   }
-   //missiles.splice(i,1)
     if(time > 3){
         asteroids.push(new Asteroid());
         time = 0;
