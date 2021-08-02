@@ -32,3 +32,20 @@ function drawRotatedImage(image, x, y, scale, rotation){
     context.drawImage(image, -image.width / 2, -image.height / 2);
     context.setTransform(1,0,0,1,0,0);
 } 
+
+function restart(){
+
+    starttime = now;
+    delta = 0;
+    alive = true;
+    score = 0;
+    for (let i=0; i<asteroids.length; i++){
+        asteroids.splice(i,1);
+    }
+    ship.x = 960;
+    ship.y = 540;
+    ship.angle = 0;
+    ship.speedX = 0;
+    ship.speedY = 0;
+
+}

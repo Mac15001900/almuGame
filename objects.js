@@ -51,7 +51,9 @@ let ship = {
         drawRotatedImage(images.shipImage, this.x, this.y, 1.5, this.angle);
     },
 
+
 }
+
 let cooldown = 0.3;
 let helpcooldown = 0;
 let Missile = function(ship) {
