@@ -11,19 +11,19 @@ let ship = {
     color: "#123456",
     update: function(delta){
         let static = true;
-        if((keysDown["w"] || keysDown["ArrowUp"]) && this.speedX**2 + this.speedY**2 < 400**2){
+        if((keysDown["w"] || keysDown["W"] || keysDown["ArrowUp"]) && this.speedX**2 + this.speedY**2 < 400**2){
             this.speedX += Math.sin(this.angle) * this.acceleration * delta;
             this.speedY += Math.cos(this.angle) * this.acceleration * delta;
             static = false;
-        } if((keysDown["s"] || keysDown["ArrowDown"]) && this.speedX**2 + this.speedY**2 < 400**2){//zmiany predkosci
+        } if((keysDown["s"] || keysDown["S"] || keysDown["ArrowDown"]) && this.speedX**2 + this.speedY**2 < 400**2){//zmiany predkosci
             this.speedX -= Math.sin(this.angle) * this.acceleration * delta;
             this.speedY -= Math.cos(this.angle) * this.acceleration * delta;
             static = false;
-        } if(keysDown["d"] || keysDown["ArrowRight"]){
+        } if(keysDown["d"] || keysDown["D"] || keysDown["ArrowRight"]){
             this.angle += Pi/120;
-        } if(keysDown["a"] || keysDown["ArrowLeft"]){
+        } if(keysDown["a"] || keysDown["A"] || keysDown["ArrowLeft"]){
             this.angle -= Pi/120;
-        } if(keysDown["z"] && now > helpcooldown + cooldown){
+        } if((keysDown["z"] || keysDown["Z"] )&& now > helpcooldown + cooldown){
             let newMissile = new Missile(ship);
             missiles.push(newMissile);
             helpcooldown = now;
@@ -80,6 +80,7 @@ let Missile = function(ship) {
 }
 
 let Asteroid = function(parent) {
+    this.difficultylevel = ((now - starttime)/2 - Math.sin((now-starttime)/2))/13+1;
     this.colisionCheck = false;
     this.time = 0;
     this.color = "#dfff20";
@@ -96,29 +97,29 @@ let Asteroid = function(parent) {
             case 1:
                 this.x = -200;
                 this.y = canvas.height * Math.random();
-                this.speedX = 50 + Math.random()*50;
-                this.speedY = Math.random()*50 - Math.random()*50;
+                this.speedX = (50 + Math.random()*50)*this.difficultylevel;
+                this.speedY = (Math.random()*50 - Math.random()*50)*this.difficultylevel;
                 break;
             
             case 2:
                 this.x = canvas.width * Math.random();
                 this.y = -200;
-                this.speedX = Math.random()*50 - Math.random()*50;
-                this.speedY = 50 + Math.random()*50;
+                this.speedX = (Math.random()*50 - Math.random()*50)*this.difficultylevel;
+                this.speedY = (50 + Math.random()*50)*this.difficultylevel;
                 break;
             
             case 3:
                 this.x = canvas.width + 200;
                 this.y = canvas.height * Math.random();
-                this.speedX = -50 - Math.random()*50;
-                this.speedY = Math.random()*50 - Math.random()*50;
+                this.speedX = (-50 - Math.random()*50)*this.difficultylevel;
+                this.speedY = (Math.random()*50 - Math.random()*50)*this.difficultylevel;
                 break;
             
             case 4:
                 this.x = canvas.width * Math.random();
                 this.y = canvas.height + 200;
-                this.speedX = Math.random()*50 - Math.random()*50;
-                this.speedY = -50 - Math.random()*50;
+                this.speedX = (Math.random()*50 - Math.random()*50)*this.difficultylevel;
+                this.speedY = (-50 - Math.random()*50)*this.difficultylevel;
                 break;
         }
     }

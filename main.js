@@ -90,6 +90,9 @@ let render = function (){
             asteroids[i].render();
         }
         ship.render();
+        context.fillStyle = "#33ff33";
+        context.font = '40px serif';
+        context.fillText("Poziom: " + Math.floor((now-starttime)/(4*Math.PI)), 300, 30);
         context.fillStyle = "#ff2222";
         context.font = '40px serif';
         context.fillText(Math.round(((now-starttime)%100000)*100)/100, 700, 30);
