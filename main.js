@@ -166,5 +166,11 @@ window.addEventListener("keydown", function (event) {
 
     init();
     animate(step);
-    /* TODO list:
-    */
+/* TODO list:
+powerup-y i upgrade-y
+zwiekszanie poziomu trudnosci
+menu start
+teleportacja
+beczka
+atomowka
+*/

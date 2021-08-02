@@ -2,7 +2,7 @@
 let ship = {
     speedX: 0,
     speedY: 0,
-    acceleration: 300,
+    acceleration: 400,
     drag: 100,
     angle: 0,
     x: 960,//width=1920 height=1080
@@ -23,7 +23,7 @@ let ship = {
             this.angle += Pi/90;
         } if(keysDown["a"] || keysDown["ArrowLeft"]){
             this.angle -= Pi/90;
-        } if(keysDown["z"] && now > helpcooldown + cooldown){
+        } if((keysDown["z"] || keysDown[" "]) && now > helpcooldown + cooldown){
             let newMissile = new Missile(ship);
             missiles.push(newMissile);
             helpcooldown = now;
