@@ -21,7 +21,7 @@ function circleCollide(circ1,circ2){
     return (x**2 + y**2 < (circ1.radius + circ2.radius)**2);
 }
 function drawCircle(circle){
-    context.globalAlpha = 0.2;
+    context.globalAlpha = 0.5;
     context.beginPath();
     context.fillStyle = circle.color;
     context.arc(circle.x, circle.y, circle.radius, 0, Math.PI*2);

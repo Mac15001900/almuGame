@@ -20,9 +20,9 @@ let ship = {
             this.speedY -= Math.cos(this.angle) * this.acceleration * delta;
             static = false;
         } if(keysDown["d"] || keysDown["ArrowRight"]){
-            this.angle += Pi/120;
+            this.angle += Pi/90;
         } if(keysDown["a"] || keysDown["ArrowLeft"]){
-            this.angle -= Pi/120;
+            this.angle -= Pi/90;
         } if(keysDown["z"] && now > helpcooldown + cooldown){
             let newMissile = new Missile(ship);
             missiles.push(newMissile);
@@ -55,7 +55,7 @@ let ship = {
 let cooldown = 0.3;
 let helpcooldown = 0;
 let Missile = function(ship) {
-    this.colisionCheck = false;
+    
 	this.angle = ship.angle-Pi/2;
 	this.x = ship.x;
 	this.y = ship.y;
@@ -120,6 +120,9 @@ let Asteroid = function(parent) {
                 break;
         }
     }
+    this.Destroyed = function(){
+        return(this.colisionCheck)
+    };
 
     this.update = function(delta,index){
         this.x += this.speedX*delta;
@@ -146,4 +149,15 @@ let Asteroid = function(parent) {
         return this.colisionCheck;
     } 
 }
-
+let pointdown = 1;
+let helppoint = 0;
+let Point = function(){
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.radius = 20;
+    this.color = "#fbfbfb";
+    this.render = function(){
+        drawRotatedImage(images.pointImage, this.x, this.y, 1);
+        if(SHOW_HITBOXES) drawCircle(this);
+    };
+}
