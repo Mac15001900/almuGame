@@ -72,6 +72,9 @@ let update = function (){
         for (let i = 0; i < asteroids.length; i++) {
         asteroids[i].update(delta,i);
         }
+            if(keysDown["r"]){
+        restart();
+    }
 };
 
 //Rysowanie klatki
@@ -105,8 +108,10 @@ let render = function (){
         context.fillStyle = "#ffffff";
         context.font = '60px serif';
         context.fillText("Final Score: " + Math.floor(endscore),720, 720);
-
+        context.font = '45px serif';
+        context.fillText('Click "r" to restart',720, 800);
     }
+
 };
 //Math.round((now%100000)*100)/100
 
