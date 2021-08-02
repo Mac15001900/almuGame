@@ -1,7 +1,7 @@
 let alive = true;
 let LOG_FPS=true; 
 let LOG_TIME=true;
-let SHOW_HITBOXES = false;
+let SHOW_HITBOXES = true;
 let Pi = Math.PI;
 let time = 0;
 let animate = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
@@ -64,7 +64,6 @@ let update = function (){
         asteroids.splice(i,1);
     }
   }
-   //missiles.splice(i,1)
     if(time > 3){
         asteroids.push(new Asteroid());
         time = 0;
@@ -170,3 +169,11 @@ window.addEventListener("keydown", function (event) {
 
     init();
     animate(step);
+/* TODO list:
+powerup-y i upgrade-y
+zwiekszanie poziomu trudnosci
+menu start
+teleportacja
+beczka
+atomowka
+*/
