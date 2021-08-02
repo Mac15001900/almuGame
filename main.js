@@ -1,7 +1,7 @@
 let alive = true;
 let LOG_FPS=true; 
 let LOG_TIME=true;
-let SHOW_HITBOXES = false;
+let SHOW_HITBOXES = true;
 let Pi = Math.PI;
 let time = 0;
 let animate = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
@@ -161,3 +161,5 @@ window.addEventListener("keydown", function (event) {
 
     init();
     animate(step);
+    /* TODO list:
+    */
