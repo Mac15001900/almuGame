@@ -5,11 +5,9 @@ let ship = {
     acceleration: 300,
     drag: 100,
     angle: 0,
-    x: 100,
-    y: 100,
-    width: 200,
-    height: 300,
-    radius: 150,
+    x: 960,//width=1920 height=1080
+    y: 540,
+    radius: 75,
     color: "#123456",
     update: function(delta){
         let static = true;
@@ -48,8 +46,8 @@ let ship = {
         if (0 < this.x < 1920 || 0 < this.y < 1080) {
             this.x = (this.x + 1920) % 1920;
             this.y = (this.y + 1080) % 1080;
-        }//width=1920 height=1080
-        drawCircle(this);
+        }
+        if(SHOW_HITBOXES) drawCircle(this);
         drawRotatedImage(images.shipImage, this.x, this.y, 1.5, this.angle);
     },
 
