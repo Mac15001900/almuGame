@@ -67,7 +67,7 @@ let update = function (){
     if(!keysDown["2"]){
         forShopTwo = true
     }
-    if(keysDown["3"] && money >= 4 && forShopThree){
+    if(keysDown["3"] && money >= 5 && forShopThree){
         ship.acceleration = ship.acceleration * 1.05
         ship.maxSpeed = ship.maxSpeed * 1.05
         money = money - 5
@@ -175,7 +175,7 @@ let render = function (){
         context.fillText(speedlvl, 240, 165);
         context.fillStyle = "#aaaaaa";
         context.font = '40px serif';
-        context.fillText("Większa prędkość statku, cena - 5 (3)", 300, 165);
+        context.fillText("Wieksza predkosc statku, cena - 5 (3)", 300, 165);
     }else{
         context.fillStyle = "#ffffff";
         context.font = '100px serif';
