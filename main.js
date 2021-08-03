@@ -49,7 +49,7 @@ let update = function (){
     fpsCalculator.update();
     if(LOG_TIME) document.getElementById('timeLog').innerHTML = Math.round((now%100000)*100)/100;
     ship.update(delta);
-    if(keysDown["1"] && money >= 10 && forShopOne && cooldownlvl < 10){
+    if(keysDown["1"] && money >= 8 && forShopOne && cooldownlvl < 10){
         cooldown = cooldown * 0.95
         money = money - 8
         forShopOne = false
@@ -67,7 +67,7 @@ let update = function (){
     if(!keysDown["2"]){
         forShopTwo = true
     }
-    if(keysDown["3"] && money >= 4 && forShopThree && speedlvl<10){
+    if(keysDown["3"] && money >= 5 && forShopThree && speedlvl<10){
         ship.acceleration = ship.acceleration * 1.05
         ship.maxSpeed = ship.maxSpeed * 1.05
         money = money - 5
