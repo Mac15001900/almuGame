@@ -12,11 +12,12 @@ let ship = {
     color: "#123456",
     update: function(delta){
         let static = true;
-        if((keysDown["w"] || keysDown["W"] || keysDown["ArrowUp"]) && this.speedX**2 + this.speedY**2 < 400**2){
+        let speed = (this.speedX**2 + this.speedY**2)**(1/2);
+        if((keysDown["w"] || keysDown["W"] || keysDown["ArrowUp"]) && speed < 400){
             this.speedX += Math.sin(this.angle) * this.acceleration * delta;
             this.speedY += Math.cos(this.angle) * this.acceleration * delta;
             static = false;
-        } if((keysDown["s"] || keysDown["S"] || keysDown["ArrowDown"]) && this.speedX**2 + this.speedY**2 < 400**2){//zmiany predkosci
+        } if((keysDown["s"] || keysDown["S"] || keysDown["ArrowDown"]) && speed < 400){//zmiany predkosci
             this.speedX -= Math.sin(this.angle) * this.acceleration * delta;
             this.speedY -= Math.cos(this.angle) * this.acceleration * delta;
             static = false;
@@ -24,15 +25,13 @@ let ship = {
             this.angle += shipAngleChange;
         } if(keysDown["a"] || keysDown["A"] || keysDown["ArrowLeft"]){
             this.angle -= shipAngleChange;
-        } if((keysDown["z"] || keysDown["Z"] )&& now > helpcooldown + cooldown){
+        } if((keysDown["z"] || keysDown["Z"] || keysDown[" "])&& now > helpcooldown + cooldown){
             let newMissile = new Missile(ship);
             missiles.push(newMissile);
             helpcooldown = now;
-        } if (static) {
-            //let speed = (this.speedX**2 + this.speedY**2)**(1/2);
-            let speed = 0;
-            this.speedX = this.speedX * (speed - this.drag * delta) / speed;
-            this.speedY = this.speedY * (speed - this.drag * delta) / speed;//samoczynne zatrzymywanie sie
+        } if (static && speed != 0) {
+            this.speedX = this.speedX * (1 - this.drag * delta / speed);
+            this.speedY = this.speedY * (1 - this.drag * delta / speed);//samoczynne zatrzymywanie sie
         }
         this.x += this.speedX * delta;//translacja
         this.y -= this.speedY * delta;
