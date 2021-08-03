@@ -19,6 +19,7 @@ let score = 0;
 let endscore = 0;
 let missiles = [];
 let asteroids = [];
+let points = [];
 
 let images = {};
 
@@ -30,6 +31,8 @@ let init = function(){
     images.shipImage.src = 'assets/statek.png';
     images.asteroidImage = new Image();
     images.asteroidImage.src = 'assets/meteoryt.png';
+    images.pointImage = new Image();
+    images.pointImage.src = 'assets/punkty.png';
 
 };
 
@@ -42,6 +45,16 @@ let update = function (){
     fpsCalculator.update();
     if(LOG_TIME) document.getElementById('timeLog').innerHTML = Math.round((now%100000)*100)/100;
     ship.update(delta);
+    if(points.length < 100 && now >= helppoint + pointdown){
+            points.push(new Point(this));
+            helppoint = now;
+    }
+        for(let i=0; i<points.length; i++){
+            if(circleCollide(ship, points[i])){
+                points.splice(i,1);
+                score += 5;
+            }
+        }
     for( let i = 0; i < missiles.length; i++) {
     	missiles[i].update(delta);
     }
@@ -51,7 +64,7 @@ let update = function (){
 		}
 	}
     for (let i = asteroids.length -1; i >= 0;i--){
-    if(asteroids[i].forDeletion()){
+    if(asteroids[i].Destroyed()){
         if(asteroids[i].radius <= 45){
             score += 5;
         }
@@ -87,6 +100,9 @@ let render = function (){
         }
         for (let i = 0; i < asteroids.length; i++) {
             asteroids[i].render();
+        }
+        for(let i = 0; i < points.length; i++){
+            points[i].render();
         }
         ship.render();
         context.fillStyle = "#33ff33";
@@ -158,6 +174,7 @@ window.addEventListener("keydown", function (event) {
     			if(LOG_FPS) document.getElementById('fpsLog').innerHTML = Math.round(this.fps);
     		}
     	}
+
     }
 
     //Starting the game

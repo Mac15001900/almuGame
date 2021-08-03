@@ -43,17 +43,13 @@ let ship = {
 
     render: function(){
         newX = 0;
-        this.x = (this.x + 1920) % 1920;
-        this.y = (this.y + 1080) % 1080;
-        if(SHOW_HITBOXES) drawCircle(this);
         drawRotatedImage(images.shipImage, this.x, this.y, 1.5, this.angle);
     },
 }
-
-
 let cooldown = 0.3;
 let helpcooldown = 0;
 let Missile = function(ship) {
+    
     this.colisionCheck = false;
 	this.angle = ship.angle-Pi/2;
 	this.x = ship.x;
@@ -68,14 +64,13 @@ let Missile = function(ship) {
 		//}
 	};
     this.render = function(){
-        drawCircle(this);
         drawRotatedImage(images.missileImage, this.x, this.y, 1, this.angle+Pi/2);
+        drawCircle(this);
     };
     this.forDeletion = function(){
         return (!(0<this.x && this.x<canvas.width && 0<this.y && this.y<canvas.height) || this.colisionCheck);
     };
 }
-
 
 let Asteroid = function(parent) {
     this.difficultylevel = ((now - starttime)/2 - Math.sin((now-starttime)/2))/13+1;
@@ -121,6 +116,9 @@ let Asteroid = function(parent) {
                 break;
         }
     }
+    this.Destroyed = function(){
+        return(this.colisionCheck)
+    };
 
     this.update = function(delta,index){
         this.x += this.speedX*delta;
@@ -147,4 +145,15 @@ let Asteroid = function(parent) {
         return this.colisionCheck;
     } 
 }
-
+let pointdown = 1;
+let helppoint = 0;
+let Point = function(){
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.radius = 20;
+    this.color = "#fbfbfb";
+    this.render = function(){
+        drawRotatedImage(images.pointImage, this.x, this.y, 1);
+        if(SHOW_HITBOXES) drawCircle(this);
+    };
+}
