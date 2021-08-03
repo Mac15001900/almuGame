@@ -102,7 +102,7 @@ let update = function (){
         for (let i = 0; i < asteroids.length; i++) {
         asteroids[i].update(delta,i);
         }
-            if(keysDown["r"]){
+            if(keysDown["r"]||keysDown["R"]){
         restart();
     }
 };
@@ -140,6 +140,9 @@ let render = function (){
         context.fillStyle = "#aaaaaa";
         context.font = '40px serif';
         context.fillText("Mniejszy cooldown, cena - 10 (1)", 300, 90);
+        context.fillStyle = "#aaaaaa";
+        context.font = '40px serif';
+        context.fillText("lvl", 240, 60)
         context.fillStyle = "#aaaaaa";
         context.font = '40px serif';
         context.fillText("Kasa:" + money, 300, 60)
