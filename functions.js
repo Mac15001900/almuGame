@@ -47,10 +47,14 @@ function restart(){
     for (let i=0; i<asteroids.length; i++){
         asteroids.splice(i,1);
     }
+    for (let i=0; i<points.length; i++){
+        points.splice(i,1);
+    }
     ship.x = 960;
     ship.y = 540;
     ship.angle = 0;
     ship.speedX = 0;
     ship.speedY = 0;
+
 
 }
