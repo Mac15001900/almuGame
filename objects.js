@@ -8,7 +8,7 @@ let ship = {
     angle: 0,
     x: 960,//width=1920 height=1080
     y: 540,
-    radius: 85,
+    radius: 75,
     color: "#123456",
     update: function(delta){
         let static = true;
@@ -43,8 +43,7 @@ let ship = {
     },
 
     render: function(){
-        newX = 0;
-                if (0 < this.x < 1920 || 0 < this.y < 1080) {
+        if (0 < this.x < 1920 || 0 < this.y < 1080) {
             this.x = (this.x + 1920) % 1920;
             this.y = (this.y + 1080) % 1080;
         }
