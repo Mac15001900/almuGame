@@ -42,8 +42,7 @@ let ship = {
     },
 
     render: function(){
-        newX = 0;
-                if (0 < this.x < 1920 || 0 < this.y < 1080) {
+        if (0 < this.x < 1920 || 0 < this.y < 1080) {
             this.x = (this.x + 1920) % 1920;
             this.y = (this.y + 1080) % 1080;
         }
