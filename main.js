@@ -1,7 +1,7 @@
 let alive = true;
 let LOG_FPS=true; 
 let LOG_TIME=true;
-let SHOW_HITBOXES = true;
+let SHOW_HITBOXES = false;
 let Pi = Math.PI;
 let time = 0;
 let animate = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
@@ -21,7 +21,10 @@ let missiles = [];
 let asteroids = [];
 let points = [];
 let money = 0;
-
+let cooldownlvl = 0;
+let rotatelvl = 0;
+let speedlvl = 0;
+let forShopThree = true;
 let images = {};
 
 let init = function(){
@@ -46,13 +49,33 @@ let update = function (){
     fpsCalculator.update();
     if(LOG_TIME) document.getElementById('timeLog').innerHTML = Math.round((now%100000)*100)/100;
     ship.update(delta);
-    if(keysDown["1"] && money >= 10){
+    if(keysDown["1"] && money >= 10 && forShopOne){
         cooldown = cooldown * 0.95
-        money = money -10
+        money = money - 8
+        forShopOne = false
+        cooldownlvl++
     }
-    if(keysDown["2"] && money >= 4){
+    if(!keysDown["1"]){
+        forShopOne = true
+    }
+    if(keysDown["2"] && money >= 4 && forShopTwo){
         shipAngleChange = shipAngleChange * 1.05
         money = money - 4
+        forShopTwo = false
+        rotatelvl++;
+    }
+    if(!keysDown["2"]){
+        forShopTwo = true
+    }
+    if(keysDown["3"] && money >= 4 && forShopThree){
+        ship.acceleration = ship.acceleration * 1.05
+        ship.maxSpeed = ship.maxSpeed * 1.05
+        money = money - 5
+        forShopThree = false
+        speedlvl++;
+    }
+    if(!keysDown["3"]){
+        forShopThree = true
     }
     if(points.length < 100 && now >= helppoint + pointdown){
             points.push(new Point(this));
@@ -94,7 +117,7 @@ let update = function (){
         for (let i = 0; i < asteroids.length; i++) {
         asteroids[i].update(delta,i);
         }
-            if(keysDown["r"]){
+            if(keysDown["r"]||keysDown["R"]){
         restart();
     }
 };
@@ -131,13 +154,28 @@ let render = function (){
         context.fillText("wynik:",900, 30);
         context.fillStyle = "#aaaaaa";
         context.font = '40px serif';
-        context.fillText("Mniejszy cooldown, cena - 10 (1)", 300, 90);
+        context.fillText("Mniejszy cooldown, cena - 8 (1)", 300, 95);
+        context.fillStyle = "#aaaaaa";
+        context.font = '40px serif';
+        context.fillText("lvl", 240, 60)
+        context.fillStyle = "#aaaaaa";
+        context.font = '40px serif';
+        context.fillText(cooldownlvl, 240, 95)
+        context.fillStyle = "#aaaaaa";
+        context.font = '40px serif';
+        context.fillText(rotatelvl, 240, 130)
         context.fillStyle = "#aaaaaa";
         context.font = '40px serif';
         context.fillText("Kasa:" + money, 300, 60)
         context.fillStyle = "#aaaaaa";
         context.font = '40px serif';
-        context.fillText("Szybsze obracanie, cena - 4 (2)", 300, 120);
+        context.fillText("Szybsze obracanie, cena - 4 (2)", 300, 130);
+        context.fillStyle = "#aaaaaa";
+        context.font = '40px serif';
+        context.fillText(speedlvl, 240, 165);
+        context.fillStyle = "#aaaaaa";
+        context.font = '40px serif';
+        context.fillText("Większa prędkość statku, cena - 5 (3)", 300, 165);
     }else{
         context.fillStyle = "#ffffff";
         context.font = '100px serif';
