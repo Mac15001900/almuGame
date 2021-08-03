@@ -2,12 +2,12 @@
 let ship = {
     speedX: 0,
     speedY: 0,
-    acceleration: 300,
+    acceleration: 400,
     drag: 100,
     angle: 0,
     x: 960,//width=1920 height=1080
     y: 540,
-    radius: 75,
+    radius: 85,
     color: "#123456",
     update: function(delta){
         let static = true;
@@ -23,7 +23,7 @@ let ship = {
             this.angle += Pi/90;
         } if(keysDown["a"] || keysDown["ArrowLeft"]){
             this.angle -= Pi/90;
-        } if(keysDown["z"] && now > helpcooldown + cooldown){
+        } if((keysDown["z"] || keysDown[" "]) && now > helpcooldown + cooldown){
             let newMissile = new Missile(ship);
             missiles.push(newMissile);
             helpcooldown = now;
@@ -43,19 +43,14 @@ let ship = {
 
     render: function(){
         newX = 0;
-        if (0 < this.x < 1920 || 0 < this.y < 1080) {
-            this.x = (this.x + 1920) % 1920;
-            this.y = (this.y + 1080) % 1080;
-        }
         drawRotatedImage(images.shipImage, this.x, this.y, 1.5, this.angle);
-        if(SHOW_HITBOXES) drawCircle(this);
     },
-
 }
 let cooldown = 0.3;
 let helpcooldown = 0;
 let Missile = function(ship) {
     
+    this.colisionCheck = false;
 	this.angle = ship.angle-Pi/2;
 	this.x = ship.x;
 	this.y = ship.y;

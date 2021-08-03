@@ -77,7 +77,6 @@ let update = function (){
         asteroids.splice(i,1);
     }
   }
-   //missiles.splice(i,1)
     if(time > 3){
         asteroids.push(new Asteroid());
         time = 0;
@@ -86,6 +85,9 @@ let update = function (){
         for (let i = 0; i < asteroids.length; i++) {
         asteroids[i].update(delta,i);
         }
+            if(keysDown["r"]){
+        restart();
+    }
 };
 
 //Rysowanie klatki
@@ -122,8 +124,10 @@ let render = function (){
         context.fillStyle = "#ffffff";
         context.font = '60px serif';
         context.fillText("Final Score: " + Math.floor(endscore),720, 720);
-
+        context.font = '45px serif';
+        context.fillText('Click "r" to restart',720, 800);
     }
+
 };
 //Math.round((now%100000)*100)/100
 
@@ -179,3 +183,11 @@ window.addEventListener("keydown", function (event) {
 
     init();
     animate(step);
+/* TODO list:
+powerup-y i upgrade-y
+zwiekszanie poziomu trudnosci
+menu start
+teleportacja
+beczka
+atomowka
+*/
