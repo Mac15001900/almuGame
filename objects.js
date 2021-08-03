@@ -28,8 +28,10 @@ let ship = {
             missiles.push(newMissile);
             helpcooldown = now;
         } if (static) {
-            this.speedX -= Math.sign(this.speedX) * this.drag * delta;
-            this.speedY -= Math.sign(this.speedY) * this.drag * delta;//samoczynne zatrzymywanie sie
+            //let speed = (this.speedX**2 + this.speedY**2)**(1/2);
+            let speed = 0;
+            this.speedX = this.speedX * (speed - this.drag * delta) / speed;
+            this.speedY = this.speedY * (speed - this.drag * delta) / speed;//samoczynne zatrzymywanie sie
         }
         this.x += this.speedX * delta;//translacja
         this.y -= this.speedY * delta;
@@ -80,7 +82,7 @@ let Asteroid = function(parent) {
     this.colisionCheck = false;
     this.time = 0;
     this.color = "#dfff20";
-    if(parent && parent.radius > 50){
+    if(parent && parent.radius > 60){
         this.x = parent.x + Math.random() * 100 - 50;
         this.y = parent.y + Math.random() * 100 - 50;
         this.speedX = parent.speedX + Math.random() * 150 - 75;
