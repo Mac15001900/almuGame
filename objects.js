@@ -1,5 +1,5 @@
 //Tworzenie statku
-let shipAngleChange = 0.05;
+let shipAngleChange = 0.03;
 let ship = {
     speedX: 0,
     speedY: 0,
@@ -35,7 +35,7 @@ let ship = {
         this.x += this.speedX * delta;//translacja
         this.y -= this.speedY * delta;
             for (let i = 0 ; i < asteroids.length; i++) {
-                if (circleCollide(ship, asteroids[i]) && alive ){
+                if (circleCollide(ship, asteroids[i]) && alive){
                     endscore = now-starttime+score;
                     alive = false;
                 }

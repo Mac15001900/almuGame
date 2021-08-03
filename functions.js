@@ -46,7 +46,7 @@ function restart(){
     score = 0;
     cooldown = 0.5;
     kasa = 0;
-    shipAngleChange = 0.05;
+    shipAngleChange = 0.03;
     for (let i=0; i<asteroids.length; i++){
         asteroids.splice(i,1);
     }

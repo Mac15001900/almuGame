@@ -46,13 +46,21 @@ let update = function (){
     fpsCalculator.update();
     if(LOG_TIME) document.getElementById('timeLog').innerHTML = Math.round((now%100000)*100)/100;
     ship.update(delta);
-    if(keysDown["1"] && money >= 10){
+    if(keysDown["1"] && money >= 10 && forShopOne){
         cooldown = cooldown * 0.95
         money = money -10
+        forShopOne = false
     }
-    if(keysDown["2"] && money >= 4){
+    if(!keysDown["1"]){
+        forShopOne = true
+    }
+    if(keysDown["2"] && money >= 4 && forShopTwo){
         shipAngleChange = shipAngleChange * 1.05
         money = money - 4
+        forShopTwo = false
+    }
+    if(!keysDown["2"]){
+        forShopTwo = true
     }
     if(points.length < 100 && now >= helppoint + pointdown){
             points.push(new Point(this));
@@ -206,7 +214,6 @@ window.addEventListener("keydown", function (event) {
     animate(step);
 /* TODO list:
 powerup-y i upgrade-y
-zwiekszanie poziomu trudnosci
 menu start
 teleportacja
 beczka
