@@ -55,6 +55,4 @@ function restart(){
     ship.angle = 0;
     ship.speedX = 0;
     ship.speedY = 0;
-
-
 }

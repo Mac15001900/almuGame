@@ -7,7 +7,7 @@ let ship = {
     angle: 0,
     x: 960,//width=1920 height=1080
     y: 540,
-    radius: 85,
+    radius: 75,
     color: "#123456",
     update: function(delta){
         let static = true;
