@@ -54,6 +54,11 @@ function restart(){
     ship.speedX = 0;
     ship.speedY = 0;
     money = 0;
+    cooldownlvl = 0;
+    rotatelvl = 0;
+    speedlvl = 0;
+    ship.maxSpeed = 400;
+    ship. acceleration = 400;
 }
 function shopUpdate(ship, upgrade) {
     // body...

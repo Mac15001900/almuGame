@@ -1,6 +1,7 @@
 //Tworzenie statku
 let shipAngleChange = 0.03;
 let ship = {
+    maxSpeed: 400,
     speedX: 0,
     speedY: 0,
     acceleration: 400,
@@ -13,11 +14,11 @@ let ship = {
     update: function(delta){
         let static = true;
         let speed = (this.speedX**2 + this.speedY**2)**(1/2);
-        if((keysDown["w"] || keysDown["W"] || keysDown["ArrowUp"]) && speed < 400){
+        if((keysDown["w"] || keysDown["W"] || keysDown["ArrowUp"]) && speed < this.maxSpeed){
             this.speedX += Math.sin(this.angle) * this.acceleration * delta;
             this.speedY += Math.cos(this.angle) * this.acceleration * delta;
             static = false;
-        } if((keysDown["s"] || keysDown["S"] || keysDown["ArrowDown"]) && speed < 400){//zmiany predkosci
+        } if((keysDown["s"] || keysDown["S"] || keysDown["ArrowDown"]) && speed < this.maxSpeed){//zmiany predkosci
             this.speedX -= Math.sin(this.angle) * this.acceleration * delta;
             this.speedY -= Math.cos(this.angle) * this.acceleration * delta;
             static = false;
