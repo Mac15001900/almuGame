@@ -205,10 +205,7 @@ window.addEventListener("keydown", function (event) {
     init();
     animate(step);
 /* TODO list:
-powerup-y i upgrade-y
-zwiekszanie poziomu trudnosci
+shop fix
+zwiekszanie poziomu trudnosci fix
 menu start
-teleportacja
-beczka
-atomowka
 */
