@@ -1,4 +1,5 @@
 //Tworzenie statku
+let shipAngleChange = 0.03;
 let ship = {
     speedX: 0,
     speedY: 0,
@@ -7,34 +8,35 @@ let ship = {
     angle: 0,
     x: 960,//width=1920 height=1080
     y: 540,
-    radius: 85,
+    radius: 75,
     color: "#123456",
     update: function(delta){
         let static = true;
-        if((keysDown["w"] || keysDown["W"] || keysDown["ArrowUp"]) && this.speedX**2 + this.speedY**2 < 400**2){
+        let speed = (this.speedX**2 + this.speedY**2)**(1/2);
+        if((keysDown["w"] || keysDown["W"] || keysDown["ArrowUp"]) && speed < 400){
             this.speedX += Math.sin(this.angle) * this.acceleration * delta;
             this.speedY += Math.cos(this.angle) * this.acceleration * delta;
             static = false;
-        } if((keysDown["s"] || keysDown["S"] || keysDown["ArrowDown"]) && this.speedX**2 + this.speedY**2 < 400**2){//zmiany predkosci
+        } if((keysDown["s"] || keysDown["S"] || keysDown["ArrowDown"]) && speed < 400){//zmiany predkosci
             this.speedX -= Math.sin(this.angle) * this.acceleration * delta;
             this.speedY -= Math.cos(this.angle) * this.acceleration * delta;
             static = false;
         } if(keysDown["d"] || keysDown["D"] || keysDown["ArrowRight"]){
-            this.angle += Pi/90;
+            this.angle += shipAngleChange;
         } if(keysDown["a"] || keysDown["A"] || keysDown["ArrowLeft"]){
-            this.angle -= Pi/90;
-        } if((keysDown["z"] || keysDown["Z"] )&& now > helpcooldown + cooldown){
+            this.angle -= shipAngleChange;
+        } if((keysDown["z"] || keysDown["Z"] || keysDown[" "])&& now > helpcooldown + cooldown){
             let newMissile = new Missile(ship);
             missiles.push(newMissile);
             helpcooldown = now;
-        } if (static) {
-            this.speedX -= Math.sign(this.speedX) * this.drag * delta;
-            this.speedY -= Math.sign(this.speedY) * this.drag * delta;//samoczynne zatrzymywanie sie
+        } if (static && speed != 0) {
+            this.speedX = this.speedX * (1 - this.drag * delta / speed);
+            this.speedY = this.speedY * (1 - this.drag * delta / speed);//samoczynne zatrzymywanie sie
         }
         this.x += this.speedX * delta;//translacja
         this.y -= this.speedY * delta;
             for (let i = 0 ; i < asteroids.length; i++) {
-                if (circleCollide(ship, asteroids[i]) && alive ){
+                if (circleCollide(ship, asteroids[i]) && alive){
                     endscore = now-starttime+score;
                     alive = false;
                 }
@@ -42,8 +44,7 @@ let ship = {
     },
 
     render: function(){
-        newX = 0;
-                if (0 < this.x < 1920 || 0 < this.y < 1080) {
+        if (0 < this.x < 1920 || 0 < this.y < 1080) {
             this.x = (this.x + 1920) % 1920;
             this.y = (this.y + 1080) % 1080;
         }
@@ -81,7 +82,7 @@ let Asteroid = function(parent) {
     this.colisionCheck = false;
     this.time = 0;
     this.color = "#dfff20";
-    if(parent && parent.radius > 50){
+    if(parent && parent.radius > 60){
         this.x = parent.x + Math.random() * 100 - 50;
         this.y = parent.y + Math.random() * 100 - 50;
         this.speedX = parent.speedX + Math.random() * 150 - 75;

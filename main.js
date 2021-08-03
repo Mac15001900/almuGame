@@ -20,6 +20,7 @@ let endscore = 0;
 let missiles = [];
 let asteroids = [];
 let points = [];
+let money = 0;
 
 let images = {};
 
@@ -45,6 +46,22 @@ let update = function (){
     fpsCalculator.update();
     if(LOG_TIME) document.getElementById('timeLog').innerHTML = Math.round((now%100000)*100)/100;
     ship.update(delta);
+    if(keysDown["1"] && money >= 10 && forShopOne){
+        cooldown = cooldown * 0.95
+        money = money -10
+        forShopOne = false
+    }
+    if(!keysDown["1"]){
+        forShopOne = true
+    }
+    if(keysDown["2"] && money >= 4 && forShopTwo){
+        shipAngleChange = shipAngleChange * 1.05
+        money = money - 4
+        forShopTwo = false
+    }
+    if(!keysDown["2"]){
+        forShopTwo = true
+    }
     if(points.length < 100 && now >= helppoint + pointdown){
             points.push(new Point(this));
             helppoint = now;
@@ -52,7 +69,7 @@ let update = function (){
         for(let i=0; i<points.length; i++){
             if(circleCollide(ship, points[i])){
                 points.splice(i,1);
-                score += 5;
+                money +=1;
             }
         }
     for( let i = 0; i < missiles.length; i++) {
@@ -107,19 +124,28 @@ let render = function (){
         ship.render();
         context.fillStyle = "#33ff33";
         context.font = '40px serif';
-        context.fillText("Poziom: " + Math.floor((now-starttime)/(4*Math.PI)), 300, 30);
+        context.fillText("Poziom: " + Math.floor((now-starttime)/(4*Pi)), 300, 30);
         context.fillStyle = "#ff2222";
         context.font = '40px serif';
-        context.fillText(Math.round(((now-starttime)%100000)*100)/100, 700, 30);
+        context.fillText(Math.round(((now-starttime)%100000)*10)/10, 700, 30);
         context.fillStyle = "#ff2222";
         context.font = '40px serif';
-        context.fillText("czas:",600, 30);
+        context.fillText("czas:",612, 30);
         context.fillStyle = "#ffaa22";
         context.font = '40px serif';
-        context.fillText(Math.round(((now-starttime+score)%100000)*100)/100, 1020, 30);
+        context.fillText(Math.round(((now-starttime+score)%100000)*10)/10, 1020, 30);
         context.fillStyle = "#ffaa22";
         context.font = '40px serif';
         context.fillText("wynik:",900, 30);
+        context.fillStyle = "#aaaaaa";
+        context.font = '40px serif';
+        context.fillText("Mniejszy cooldown, cena - 10 (1)", 300, 90);
+        context.fillStyle = "#aaaaaa";
+        context.font = '40px serif';
+        context.fillText("Kasa:" + money, 300, 60)
+        context.fillStyle = "#aaaaaa";
+        context.font = '40px serif';
+        context.fillText("Szybsze obracanie, cena - 4 (2)", 300, 120);
     }else{
         context.fillStyle = "#ffffff";
         context.font = '100px serif';
@@ -188,7 +214,6 @@ window.addEventListener("keydown", function (event) {
     animate(step);
 /* TODO list:
 powerup-y i upgrade-y
-zwiekszanie poziomu trudnosci
 menu start
 teleportacja
 beczka
