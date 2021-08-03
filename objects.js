@@ -1,4 +1,5 @@
 //Tworzenie statku
+let shipAngleChange = 0.05;
 let ship = {
     speedX: 0,
     speedY: 0,
@@ -20,9 +21,9 @@ let ship = {
             this.speedY -= Math.cos(this.angle) * this.acceleration * delta;
             static = false;
         } if(keysDown["d"] || keysDown["D"] || keysDown["ArrowRight"]){
-            this.angle += Pi/90;
+            this.angle += shipAngleChange;
         } if(keysDown["a"] || keysDown["A"] || keysDown["ArrowLeft"]){
-            this.angle -= Pi/90;
+            this.angle -= shipAngleChange;
         } if((keysDown["z"] || keysDown["Z"] )&& now > helpcooldown + cooldown){
             let newMissile = new Missile(ship);
             missiles.push(newMissile);

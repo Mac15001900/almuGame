@@ -20,6 +20,7 @@ let endscore = 0;
 let missiles = [];
 let asteroids = [];
 let points = [];
+let money = 0;
 
 let images = {};
 
@@ -45,6 +46,14 @@ let update = function (){
     fpsCalculator.update();
     if(LOG_TIME) document.getElementById('timeLog').innerHTML = Math.round((now%100000)*100)/100;
     ship.update(delta);
+    if(keysDown["1"] && money >= 10){
+        cooldown = cooldown * 0.95
+        money = money -10
+    }
+    if(keysDown["2"] && money >= 4){
+        shipAngleChange = shipAngleChange * 1.05
+        money = money - 4
+    }
     if(points.length < 100 && now >= helppoint + pointdown){
             points.push(new Point(this));
             helppoint = now;
@@ -52,7 +61,7 @@ let update = function (){
         for(let i=0; i<points.length; i++){
             if(circleCollide(ship, points[i])){
                 points.splice(i,1);
-                score += 5;
+                money +=1;
             }
         }
     for( let i = 0; i < missiles.length; i++) {
@@ -120,6 +129,15 @@ let render = function (){
         context.fillStyle = "#ffaa22";
         context.font = '40px serif';
         context.fillText("wynik:",900, 30);
+        context.fillStyle = "#aaaaaa";
+        context.font = '40px serif';
+        context.fillText("Mniejszy cooldown, cena - 10 (1)", 300, 90);
+        context.fillStyle = "#aaaaaa";
+        context.font = '40px serif';
+        context.fillText("Kasa:" + money, 300, 60)
+        context.fillStyle = "#aaaaaa";
+        context.font = '40px serif';
+        context.fillText("Szybsze obracanie, cena - 4 (2)", 300, 120);
     }else{
         context.fillStyle = "#ffffff";
         context.font = '100px serif';

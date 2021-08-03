@@ -39,6 +39,9 @@ function restart(){
     delta = 0;
     alive = true;
     score = 0;
+    cooldown = 0.5;
+    kasa = 0;
+    shipAngleChange = 0.05;
     for (let i=0; i<asteroids.length; i++){
         asteroids.splice(i,1);
     }
