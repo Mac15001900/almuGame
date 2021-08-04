@@ -25,6 +25,7 @@ let cooldownlvl = 0;
 let rotatelvl = 0;
 let speedlvl = 0;
 let forShopThree = true;
+let difficultylevel = 1;
 let images = {};
 
 let init = function(){
@@ -109,7 +110,7 @@ let update = function (){
         asteroids.splice(i,1);
     }
   }
-    if(time > 3){
+    if(time > 3/difficultylevel){
         asteroids.push(new Asteroid());
         time = 0;
     }
@@ -120,6 +121,7 @@ let update = function (){
             if(keysDown["r"]||keysDown["R"]){
         restart();
     }
+    difficultylevel = ((now - starttime)/2 - Math.sin((now-starttime)/2))/13+1;
 };
 
 //Rysowanie klatki

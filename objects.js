@@ -79,7 +79,6 @@ let Missile = function(ship) {
 }
 
 let Asteroid = function(parent) {
-    this.difficultylevel = ((now - starttime)/2 - Math.sin((now-starttime)/2))/13+1;
     this.colisionCheck = false;
     this.time = 0;
     this.color = "#dfff20";
@@ -96,29 +95,29 @@ let Asteroid = function(parent) {
             case 1:
                 this.x = -200;
                 this.y = canvas.height * Math.random();
-                this.speedX = (50 + Math.random()*50)*this.difficultylevel;
-                this.speedY = (Math.random()*50 - Math.random()*50)*this.difficultylevel;
+                this.speedX = (50 + Math.random()*50)*difficultylevel;
+                this.speedY = (Math.random()*50 - Math.random()*50)*difficultylevel;
                 break;
             
             case 2:
                 this.x = canvas.width * Math.random();
                 this.y = -200;
-                this.speedX = (Math.random()*50 - Math.random()*50)*this.difficultylevel;
-                this.speedY = (50 + Math.random()*50)*this.difficultylevel;
+                this.speedX = (Math.random()*50 - Math.random()*50)*difficultylevel;
+                this.speedY = (50 + Math.random()*50)*difficultylevel;
                 break;
             
             case 3:
                 this.x = canvas.width + 200;
                 this.y = canvas.height * Math.random();
-                this.speedX = (-50 - Math.random()*50)*this.difficultylevel;
-                this.speedY = (Math.random()*50 - Math.random()*50)*this.difficultylevel;
+                this.speedX = (-50 - Math.random()*50)*difficultylevel;
+                this.speedY = (Math.random()*50 - Math.random()*50)*difficultylevel;
                 break;
             
             case 4:
                 this.x = canvas.width * Math.random();
                 this.y = canvas.height + 200;
-                this.speedX = (Math.random()*50 - Math.random()*50)*this.difficultylevel;
-                this.speedY = (-50 - Math.random()*50)*this.difficultylevel;
+                this.speedX = (Math.random()*50 - Math.random()*50)*difficultylevel;
+                this.speedY = (-50 - Math.random()*50)*difficultylevel;
                 break;
         }
     }
