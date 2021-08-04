@@ -121,7 +121,7 @@ let update = function (){
             if(keysDown["r"]||keysDown["R"]){
         restart();
     }
-    difficultylevel = ((now - starttime)/2 - Math.sin((now-starttime)/2))/13+1;
+    difficultylevel = (((now - starttime)/2 - Math.sin((now-starttime)/2))/13+1)**(4/5);
 };
 
 //Rysowanie klatki
