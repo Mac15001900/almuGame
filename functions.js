@@ -48,6 +48,9 @@ function restart(){
     for (let i=0; i<points.length; i++){
         points.splice(i,1);
     }
+        for (let i=0; i<missiles.length; i++){
+        missiles.splice(i,1);
+    }
     ship.x = 960;
     ship.y = 540;
     ship.angle = 0;
