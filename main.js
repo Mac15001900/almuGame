@@ -49,7 +49,7 @@ let update = function (){
     fpsCalculator.update();
     if(LOG_TIME) document.getElementById('timeLog').innerHTML = Math.round((now%100000)*100)/100;
     ship.update(delta);
-    if(keysDown["1"] && money >= 10 && forShopOne){
+    if(keysDown["1"] && money >= 8 && forShopOne && cooldownlvl < 10){
         cooldown = cooldown * 0.95
         money = money - 8
         forShopOne = false
@@ -58,7 +58,7 @@ let update = function (){
     if(!keysDown["1"]){
         forShopOne = true
     }
-    if(keysDown["2"] && money >= 4 && forShopTwo){
+    if(keysDown["2"] && money >= 4 && forShopTwo && rotatelvl<10){
         shipAngleChange = shipAngleChange * 1.05
         money = money - 4
         forShopTwo = false
@@ -67,7 +67,7 @@ let update = function (){
     if(!keysDown["2"]){
         forShopTwo = true
     }
-    if(keysDown["3"] && money >= 5 && forShopThree){
+    if(keysDown["3"] && money >= 5 && forShopThree && speedlvl<10){
         ship.acceleration = ship.acceleration * 1.05
         ship.maxSpeed = ship.maxSpeed * 1.05
         money = money - 5
@@ -157,23 +157,40 @@ let render = function (){
         context.fillText("Mniejszy cooldown, cena - 8 (1)", 300, 95);
         context.fillStyle = "#aaaaaa";
         context.font = '40px serif';
-        context.fillText("lvl", 240, 60)
-        context.fillStyle = "#aaaaaa";
-        context.font = '40px serif';
-        context.fillText(cooldownlvl, 240, 95)
-        context.fillStyle = "#aaaaaa";
-        context.font = '40px serif';
-        context.fillText(rotatelvl, 240, 130)
+        context.fillText("lvl", 220, 60)
+        if(cooldownlvl<10){
+            context.fillStyle = "#aaaaaa";
+            context.font = '40px serif';
+            context.fillText(cooldownlvl, 220, 95);
+        }else{
+            context.fillStyle = "#aaaaaa";
+            context.font = '40px serif';
+            context.fillText("max", 220, 95);
+        }
+        if(rotatelvl<10){
+            context.fillStyle = "#aaaaaa";
+            context.font = '40px serif';
+            context.fillText(rotatelvl, 220, 130);
+        }else{
+            context.fillStyle = "#aaaaaa";
+            context.font = '40px serif';
+            context.fillText("max", 220, 130);
+        }
         context.fillStyle = "#aaaaaa";
         context.font = '40px serif';
         context.fillText("Kasa:" + money, 300, 60)
         context.fillStyle = "#aaaaaa";
         context.font = '40px serif';
         context.fillText("Szybsze obracanie, cena - 4 (2)", 300, 130);
-        context.fillStyle = "#aaaaaa";
-        context.font = '40px serif';
-        context.fillText(speedlvl, 240, 165);
-        context.fillStyle = "#aaaaaa";
+        if(speedlvl<10){
+            context.fillStyle = "#aaaaaa";
+            context.font = '40px serif';
+            context.fillText(speedlvl, 220, 165);
+        }else{
+            context.fillStyle = "#aaaaaa";
+            context.font = '40px serif';
+            context.fillText("max", 220, 165);
+        }        context.fillStyle = "#aaaaaa";
         context.font = '40px serif';
         context.fillText("Wieksza predkosc statku, cena - 5 (3)", 300, 165);
     }else{
