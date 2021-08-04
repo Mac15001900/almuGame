@@ -49,9 +49,9 @@ let update = function (){
     fpsCalculator.update();
     if(LOG_TIME) document.getElementById('timeLog').innerHTML = Math.round((now%100000)*100)/100;
     ship.update(delta);
-    if(keysDown["1"] && money >= 8 && forShopOne && cooldownlvl < 10){
-        cooldown = cooldown * 0.95
-        money = money - 8
+    if(keysDown["1"] && money >= 6 && forShopOne && cooldownlvl < 10){
+        cooldown = cooldown * 0.85
+        money = money - 6
         forShopOne = false
         cooldownlvl++
     }
@@ -59,7 +59,7 @@ let update = function (){
         forShopOne = true
     }
     if(keysDown["2"] && money >= 4 && forShopTwo && rotatelvl<10){
-        shipAngleChange = shipAngleChange * 1.05
+        shipAngleChange = shipAngleChange * 1.15
         money = money - 4
         forShopTwo = false
         rotatelvl++;
@@ -68,7 +68,7 @@ let update = function (){
         forShopTwo = true
     }
     if(keysDown["3"] && money >= 5 && forShopThree && speedlvl<10){
-        ship.acceleration = ship.acceleration * 1.05
+        ship.acceleration = ship.acceleration * 1.15
         ship.maxSpeed = ship.maxSpeed * 1.05
         money = money - 5
         forShopThree = false
@@ -154,7 +154,7 @@ let render = function (){
         context.fillText("wynik:",1270, 30);
         context.fillStyle = "#aaaaaa";
         context.font = '40px serif';
-        context.fillText("Mniejszy cooldown, cena - 8 (1)", 100, 65);
+        context.fillText("Mniejszy cooldown, cena - 6 (1)", 100, 65);
         context.fillText("lvl", 20, 30)
         if(cooldownlvl<10){
             context.fillText(cooldownlvl, 20, 65);

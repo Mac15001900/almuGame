@@ -1,10 +1,10 @@
 //Tworzenie statku
 let shipAngleChange = 0.03;
 let ship = {
-    maxSpeed: 400,
+    maxSpeed: 300,
     speedX: 0,
     speedY: 0,
-    acceleration: 400,
+    acceleration: 300,
     drag: 100,
     angle: 0,
     x: 960,//width=1920 height=1080
