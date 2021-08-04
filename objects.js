@@ -1,15 +1,19 @@
 //Tworzenie statku
 let shipAngleChange = 0.03;
+let lastroll = now;
 let ship = {
-    maxSpeed: 300,
     speedX: 0,
     speedY: 0,
+    maxSpeed: 300,
     acceleration: 300,
     drag: 100,
+    roll: 200,
+    rollCooldown: 0.5,
     angle: 0,
     x: 960,//width=1920 height=1080
     y: 540,
     radius: 75,
+
     color: "#123456",
     update: function(delta){
         let static = true;
@@ -26,7 +30,11 @@ let ship = {
             this.angle += shipAngleChange;
         } if(keysDown["a"] || keysDown["A"] || keysDown["ArrowLeft"]){
             this.angle -= shipAngleChange;
-        } if((keysDown["z"] || keysDown["Z"] || keysDown[" "])&& now > helpcooldown + cooldown){
+        } if((keysDown["q"] || keysDown["Q"]) && now - lastroll > this.rollCooldown){
+            this.barrelRoll(true);
+        } if((keysDown["e"] || keysDown["E"]) && now - lastroll > this.rollCooldown){
+            this.barrelRoll(false);
+        }if((keysDown["z"] || keysDown["Z"] || keysDown[" "])&& now > helpcooldown + cooldown){
             let newMissile = new Missile(ship);
             missiles.push(newMissile);
             helpcooldown = now;
@@ -51,6 +59,16 @@ let ship = {
         }
         drawRotatedImage(images.shipImage, this.x, this.y, 1.5, this.angle);
     },
+    barrelRoll: function(direction){
+        if (direction === true) {
+        this.speedX += Math.sin(this.angle - Pi/2) * this.roll;
+        this.speedY += Math.cos(this.angle - Pi/2) * this.roll;
+        } else {
+        this.speedX -= Math.sin(this.angle - Pi/2) * this.roll;
+        this.speedY -= Math.cos(this.angle - Pi/2) * this.roll;
+        }
+        lastroll = now;
+    }
 }
 let cooldown = 0.1;
 let helpcooldown = 0;
