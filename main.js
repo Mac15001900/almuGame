@@ -78,7 +78,7 @@ let update = function (){
     if(!keysDown["3"]){
         forShopThree = true
     }
-    if(points.length < 100 && now >= helppoint + pointdown){
+    if(points.length < 20 && now >= helppoint + pointdown){
             points.push(new Point(this));
             helppoint = now;
     }
