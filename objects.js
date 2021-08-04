@@ -151,7 +151,7 @@ let Asteroid = function(parent) {
         return this.colisionCheck;
     } 
 }
-let pointdown = 1;
+let pointdown = 1.5;
 let helppoint = 0;
 let Point = function(){
     this.x = Math.random() * canvas.width;
