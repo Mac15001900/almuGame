@@ -51,7 +51,7 @@ let update = function (){
     if(LOG_TIME) document.getElementById('timeLog').innerHTML = Math.round((now%100000)*100)/100;
     ship.update(delta);
     if(keysDown["1"] && money >= 6 && forShopOne && cooldownlvl < 10){
-        cooldown = cooldown * 0.85
+        cooldown = cooldown * 0.9
         money = money - 6
         forShopOne = false
         cooldownlvl++

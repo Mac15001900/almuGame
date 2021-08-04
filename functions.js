@@ -39,7 +39,7 @@ function restart(){
     delta = 0;
     alive = true;
     score = 0;
-    cooldown = 0.5;
+    cooldown = 0.1;
     kasa = 0;
     shipAngleChange = 0.03;
     for (let i=0; i<asteroids.length; i++){
