@@ -1,4 +1,6 @@
 //Drobne użytkowe funkcje
+
+let now = Date.now()/1000;
 function drawRotatedRect(rect,rotation){
     context.save();
     context.beginPath();

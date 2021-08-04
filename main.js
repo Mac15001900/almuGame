@@ -12,7 +12,6 @@ let animate = window.requestAnimationFrame || window.webkitRequestAnimationFrame
 let canvas = document.getElementById("mainCanvas");
 let context = canvas.getContext('2d');
 
-let now = Date.now()/1000;
 let keysDown = {};
 let starttime = now;
 let score = 0;
