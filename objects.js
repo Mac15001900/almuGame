@@ -71,7 +71,7 @@ let ship = {
     }
 }
 let cooldown = 0.1;
-let helpcooldown = 0;
+let helpcooldown = 0.1;
 let Missile = function(ship) {
     
     this.colisionCheck = false;
